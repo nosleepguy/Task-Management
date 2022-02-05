@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.morphin {
+    background: linear-gradient(
+        to right bottom,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.7)
+    );
+    backdrop-filter: blur(10px);
+}
+.react-calendar {
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+}
+.react-calendar__navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.react-calendar__navigation__arrow {
+    cursor: pointer;
+    font-size: 20px;
+    color: #000;
+}
+.react-calendar__navigation__arrow:hover {
+    color: #000;
+}
+.react-calendar__navigation__next-button,
+.react-calendar__navigation__prev-button {
+    margin: 0 10px;
+}
+.react-calendar__month-view__weekdays {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    text-align: center;
+}
+abbr {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #000;
+}
+.react-calendar__month-view__days__day {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background: #fff;
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.react-calendar__month-view__days__day:hover {
+    background: #f0f0f0;
+}
+.react-calendar__year-view__months__month {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.react-datetime-picker__wrapper {
+    width: fit-content;
+}
+.react-datetime-picker__inputGroup {
+    display: flex;
+}
+.react-datetime-picker__button {
+    padding: 0 !important;
+}
+.react-datetime-picker__clear-button {
+    margin-left: 30px !important;
+}
+.react-datetime-picker__inputGroup__input {
+    outline: none !important;
+}
+.react-datetime-picker__wrapper {
+    border: none !important;
+}
+.react-calendar__month-view__days__day--weekend abbr {
+    color: red !important;
+}

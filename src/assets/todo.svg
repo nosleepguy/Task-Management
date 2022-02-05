@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2020 (64-Bit) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="4.23238in" height="4.32731in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 667.62 682.59"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:white;stroke-width:1.1;stroke-miterlimit:2.61313}
+    .fil3 {fill:#C3A2FB}
+    .fil2 {fill:#DED1FA}
+    .fil1 {fill:white}
+    .fil0 {fill:url(#id0)}
+    .fil4 {fill:url(#id1)}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="652.25" y1="530.16" x2="89.06" y2="194.33">
+   <stop offset="0" style="stop-opacity:1; stop-color:#1B08DD"/>
+   <stop offset="0.388235" style="stop-opacity:1; stop-color:#5409E6"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#8D0AF0"/>
+  </linearGradient>
+  <linearGradient id="id1" gradientUnits="userSpaceOnUse" x1="305.04" y1="205.53" x2="503.54" y2="305.36">
+   <stop offset="0" style="stop-opacity:1; stop-color:#4504FB"/>
+   <stop offset="0.580392" style="stop-opacity:1; stop-color:#6516F8"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#8529F5"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <path class="fil0" d="M41.22 204.88l344.46 -153.86c34.99,-15.63 76.4,0.21 92.02,35.2l153.86 344.46c15.63,34.99 -0.21,76.4 -35.2,92.02l-344.46 153.86c-34.99,15.63 -76.4,-0.21 -92.02,-35.2l-153.86 -344.46c-15.63,-34.99 0.21,-76.4 35.2,-92.02z"/>
+  <rect class="fil1 str0" transform="matrix(0.987266 -0.159078 0.159078 0.987266 85.0639 72.5297)" width="516.6" height="516.6" rx="69.67" ry="69.67"/>
+  <path class="fil2" d="M513.07 230.85l-105.46 197.18c-1.06,1.98 -2.28,3.83 -3.63,5.54 -10.96,14 -30.84,18.61 -47.04,9.97l-71.63 -38.19c-18.13,-9.67 -25.05,-32.41 -15.38,-50.54l0 0c9.68,-18.13 32.43,-25.05 50.56,-15.39l38.72 20.64 87.85 -164.27c9.69,-18.12 32.47,-25.06 50.62,-15.42l0 0c18.15,9.64 25.07,32.35 15.38,50.47z"/>
+  <path class="fil3" d="M506.82 208.55l-105.46 197.18c-1.06,1.98 -2.28,3.83 -3.63,5.54 -10.96,14 -30.84,18.61 -47.04,9.97l-71.63 -38.19c-18.13,-9.67 -25.05,-32.41 -15.38,-50.54l0 0c9.68,-18.13 32.43,-25.05 50.56,-15.39l38.72 20.64 87.85 -164.27c9.69,-18.12 32.47,-25.06 50.62,-15.42l0 0c18.15,9.64 25.07,32.35 15.38,50.47z"/>
+  <path class="fil4" d="M500.57 186.26l-105.46 197.18c-1.06,1.98 -2.28,3.83 -3.63,5.54 -10.96,14 -30.84,18.61 -47.04,9.97l-71.63 -38.19c-18.13,-9.67 -25.05,-32.41 -15.38,-50.54l0 0c9.68,-18.13 32.43,-25.05 50.56,-15.39l38.72 20.64 87.85 -164.27c9.69,-18.12 32.47,-25.06 50.62,-15.42l0 0c18.15,9.64 25.07,32.35 15.38,50.47z"/>
+ </g>
+</svg>

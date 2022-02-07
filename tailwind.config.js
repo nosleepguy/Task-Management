@@ -1,7 +1,11 @@
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './index.html'],
   theme: {
-    extend: {},
+    extend: {
+      textColor: {
+        'regal-blue': '#233657',
+      }
+    },
   },
   plugins: [],
 }

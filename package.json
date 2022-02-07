@@ -2,17 +2,22 @@
   "name": "todotypesccript",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite && npx tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.3",
+    "@heroicons/react": "^1.0.5",
+    "@types/react-redux": "^7.1.22",
     "iconsax-react": "^0.0.8",
     "react": "^17.0.2",
     "react-date-picker": "^8.4.0",
     "react-datetime-picker": "^3.5.0",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "6",
+    "redux": "^4.1.2",
     "tailwindcss": "^3.0.18"
   },
   "devDependencies": {

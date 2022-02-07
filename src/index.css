@@ -98,3 +98,17 @@ abbr {
 .react-calendar__month-view__days__day--weekend abbr {
     color: red !important;
 }
+.all-task-container::-webkit-scrollbar {
+    width: 0.5rem;
+}
+.all-task-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.all-task-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+.all-task-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+

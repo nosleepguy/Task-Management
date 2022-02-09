@@ -1,6 +1,6 @@
 import React from "react";
 import { TickCircle, Sort } from "iconsax-react";
-import Todo from "../../components/Todo";
+import Todo from "components/Todo";
 
 const CurrentTaskContainer = (): JSX.Element => {
     const [isShowSort, setIsShowSort] = React.useState(false);

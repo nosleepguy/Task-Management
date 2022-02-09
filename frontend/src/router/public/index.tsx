@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Loading from "../../components/Loading";
+import Loading from "components/Loading";
 
-const Login = React.lazy(() => import("../../components/Login"));
-const Register = React.lazy(() => import("../../components/Register"));
-const NotFound = React.lazy(() => import("../../components/NotFound"));
+const Login = React.lazy(() => import("container/Login"));
+const Register = React.lazy(() => import("container/Register"));
+const NotFound = React.lazy(() => import("components/NotFound"));
 
 const PublicRouter = () => {
     return (

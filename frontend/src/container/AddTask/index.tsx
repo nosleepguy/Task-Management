@@ -1,10 +1,11 @@
-import React, { useState, Fragment } from "react";
+import { useState, Fragment } from "react";
 import { AddCircle, Calendar1, Add, Flash, Coffee, Alarm } from "iconsax-react";
 import { Menu, Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import DateTimePicker from "react-datetime-picker/dist/entry.nostyle";
 
 import "react-datetime-picker/dist/DateTimePicker.css";
+
 const people = [
     { name: "Wade Cooper" },
     { name: "Arlene Mccoy" },

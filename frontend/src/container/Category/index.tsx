@@ -1,5 +1,4 @@
-import React from "react";
-import Category from "../../components/Category";
+import Category from "components/Category";
 
 const CategoryContainer = () => {
     return (

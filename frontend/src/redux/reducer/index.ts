@@ -1,10 +1,11 @@
 import { combineReducers } from "redux";
 import { TodoReducer } from "./Todo";
+import { AuthReducer } from "./Auth";
 
-interface RootState {
-    TodoReducer: object;
-}
-
-export default combineReducers<RootState>({
+const rootReducer = combineReducers({
     TodoReducer,
+    AuthReducer,
 });
+export type RootState = ReturnType<typeof rootReducer>;
+
+export default rootReducer;

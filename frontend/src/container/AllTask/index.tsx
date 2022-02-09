@@ -1,6 +1,6 @@
 import React from "react";
 import { Category, Timer, RowHorizontal, RowVertical } from "iconsax-react";
-import Todo from "../../components/Todo";
+import Todo from "components/Todo";
 
 const AlLTaskContainer = () => {
     return (

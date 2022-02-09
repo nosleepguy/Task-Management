@@ -1,10 +1,10 @@
 
-import Footer from "./components/Footer";
-import Navigation from "./components/Navigation";
-// import AddTaskContainer from "./container/AddTask";
-// import CompleteTaskContiner from "./container/CompleteTask";
-// import CurrentTaskContainer from "./container/CurrentTask";
-import Router from "./router";
+import Footer from "components/Footer";
+import Navigation from "components/Navigation";
+// import AddTaskContainer from "container/AddTask";
+// import CompleteTaskContiner from "container/CompleteTask";
+// import CurrentTaskContainer from "container/CurrentTask";
+import Router from "router";
 
 const App = () => {
     return (

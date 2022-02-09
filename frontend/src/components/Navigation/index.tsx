@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Transition } from "@headlessui/react";
-import TodoLogo from "./../../assets/todo.svg";
+import TodoLogo from "assets/todo.svg";
 import { Link } from "react-router-dom";
 
 const Navigation = (): JSX.Element => {

@@ -9,16 +9,16 @@ import { AuthError, CommonError, UserError } from '../../common/error/index.js';
 import { UserStatus } from '../../common/enum.js';
 const UserModal = new User();
 export default class UserServices {
-    async login(username, password) {
+    async login(email, password) {
         try {
-            const userFound = await db.user.findOne({ username: username });
+            const userFound = await db.user.findOne({ email: email });
             if (userFound) {
                 let checkpass = checkPassword(password, userFound.salt, userFound.password);
                 if (checkpass) {
                     let user = await db.user.aggregate([
                         {
                             $match: {
-                                username: userFound.username
+                                email: userFound.email
                             }
                         },
                         {
@@ -29,8 +29,8 @@ export default class UserServices {
                         return UserError.LOGIN_SNS_VERIFY_EMAIL
                     } else if (user[0].status == 1) {
                         const userData = user[0];
-                        const token = UserModal.generateToken(userFound._id, userFound.username, userFound.type)
-                        const refreshToken = UserModal.generateRefreshToken(userFound._id, userFound.username, userFound.type)
+                        const token = UserModal.generateToken(userFound._id, userFound.email, userFound.type)
+                        const refreshToken = UserModal.generateRefreshToken(userFound._id, userFound.email, userFound.type)
                         return responseSuccess({ userData, token, refreshToken })
                     } else {
                         return responseError(UserError.ACCOUNT_LOCKED)
@@ -62,8 +62,7 @@ export default class UserServices {
                     to: newUser.email,
                     ...signUpTemplate(`${process.env.DOMAIN}/api/verify-account?token=${token}`)
                 }
-
-                await sendMail(mailOptions);
+                sendMail(mailOptions);
                 return responseSuccess("", "Đăng ký thành công. Vui lòng kiểm tra Email");
             }
         } catch (error) {
@@ -75,7 +74,7 @@ export default class UserServices {
             if (decoded) {
                 try {
                     const id = decoded.id;
-                    const username = decoded.username;
+                    const email = decoded.email;
                     const type = decoded.type;
                     db.user.updateOne({ _id: ObjectId(id) }, { $set: { status: UserStatus.VERIFY } });
                     return responseSuccess("", "Xác minh thành công")
@@ -92,9 +91,9 @@ export default class UserServices {
     async refreshToken(refreshToken) {
         try {
             const decoded = jwt.verify(refreshToken, process.env.PRIVATE_KEY, { ignoreExpiration: true });
-            const { id, username, type } = decoded;
+            const { id, email, type } = decoded;
             const token = jwt.sign({
-                id, username, type
+                id, email, type
             }, process.env.PRIVATE_KEY, {
                 expiresIn: Number(process.env.TOKEN_LIFE)
             })
@@ -108,12 +107,12 @@ export default class UserServices {
             }
         }
     }
-    async getUserData(username) {
+    async getUserData(email) {
         try {
             const data = await db.user.aggregate([
                 {
                     '$match': {
-                        'username': `${username}`
+                        'email': `${email}`
                     }
                 }, {
                     '$unset': [
@@ -122,6 +121,7 @@ export default class UserServices {
                 }
             ]).toArray();
             return responseSuccess(data);
+
         } catch (error) {
             return responseError(error || UserError.UNKNOWN_ERROR)
         }

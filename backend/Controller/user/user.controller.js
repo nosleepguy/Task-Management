@@ -3,8 +3,8 @@ const UserSv = new UserServices();
 
 export default class UserController {
     async login(req, res) {
-        const { username, password } = req.body;
-        const result = await UserSv.login(username, password);
+        const { email, password } = req.body;
+        const result = await UserSv.login(email, password);
         res.send(result);
     }
     async register(req, res) {
@@ -23,8 +23,8 @@ export default class UserController {
         res.send(result);
     }
     async getUserData(req, res) {
-        const { username } = req.query;
-        const result = await UserSv.getUserData(username);
+        const { email } = req.query;
+        const result = await UserSv.getUserData(email);
         res.send(result)
     }
     async getActivities(req, res) {

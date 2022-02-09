@@ -1,68 +1,68 @@
 export default function (link) {
     return {
-        subject: "[Xác minh] DEV.TO VietNam",
+        subject: "[Xác minh] MY TASKS",
         html: `<!DOCTYPE html>
         <html lang="en">
         <head>
           <meta name="viewport" content="width=device-width">
           <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-          <title>DEV.TO VIETNAM CONFIRM EMAIL</title>
+          <title>MY TASKS CONFIRM EMAIL</title>
           <style media="all" type="text/css">
             @media only screen and (max-width: 480px) {
               table[class=body] h1 {
                 font-size: 24px !important;
               }
-        
+
               table[class=body] h2 {
                 font-size: 20px !important;
               }
-        
+
               table[class=body] h3 {
                 font-size: 14px !important;
               }
-        
+
               table[class=body] .content,
               table[class=body] .wrapper {
                 padding: 15px !important;
               }
-        
+
               table[class=body] .container {
                 width: 100% !important;
                 padding: 0 !important;
               }
-        
+
               table[class=body] .column {
                 width: 100% !important;
               }
-        
+
               table[class=body] .stats .column {
                 width: 50% !important;
               }
-        
+
               table[class=body] .hero-image,
               table[class=body] .thumb {
                 width: 100% !important;
                 height: auto !important;
               }
-        
+
               table[class=body] .btn table,
               table[class=body] .btn a {
                 width: 100% !important;
               }
-        
+
               table[class=body] .stats-table {
                 display: none !important;
               }
-        
+
               table[class=body] .stats-labels .label,
               table[class=body] .category-labels .label {
                 font-size: 10px !important;
               }
-        
+
               table[class=body] .credits table {
                 table-layout: auto !important;
               }
-        
+
               table[class=body] .credits .label {
                 font-size: 11px !important;
               }
@@ -72,7 +72,7 @@ export default function (link) {
             @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
           </style>
         </head>
-        
+
         <body
           style="font-size: 16px; background-color: #fdfdfd; margin: 0; padding: 0; font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; -webkit-text-size-adjust: 100%; line-height: 1.5; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; height: 100% !important; width: 100% !important;">
           <table bgcolor="#fdfdfd" class="body"
@@ -110,7 +110,7 @@ export default function (link) {
                         </tbody>
                       </table>
                     </div>
-        
+
                     <div class="block"
                       style="box-sizing: border-box; width: 100%; margin-bottom: 30px; background: #ffffff; border: 1px solid #f0f0f0;">
                       <table
@@ -133,7 +133,7 @@ export default function (link) {
                                         style="margin: 0; margin-bottom: 30px; font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-weight: 300; line-height: 1.5; font-size: 24px; color: #294661 !important;">
                                         Gần như đã hoàn tất!<br>
                                         Cùng xác nhận địa chỉ Email ⚡</h2>
-        
+
                                       <p
                                         style="margin: 0; margin-bottom: 30px; color: #294661; font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 300;">
                                         Bằng việc click vào link bên dưới, bạn đã xác nhận địa
@@ -179,7 +179,7 @@ export default function (link) {
                         </tbody>
                       </table>
                     </div>
-        
+
                     <div class="footer" style="box-sizing: border-box; clear: both; width: 100%;">
                       <table
                         style="box-sizing: border-box; width: 100%; border-spacing: 0; mso-table-rspace: 0pt; mso-table-lspace: 0pt; font-size: 12px; border-collapse: separate !important;"
@@ -196,16 +196,16 @@ export default function (link) {
                                     src="https://uiux.s3.amazonaws.com/2016-logos/email-logo%402x.png"
                                     style="max-width: 100%; border-style: none; font-size: 12px; width: 89px; height: 16px;"
                                     width="89"></a></span>
-        
+
                               <p class="tagline"
                                 style="color: #294661; font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 400; margin-bottom: 5px; margin: 10px 0 20px;">
                               </p>
-        
+
                               <p
                                 style="margin: 0; color: #294661; font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-weight: 300; font-size: 12px; margin-bottom: 5px;">
                                 © SendGrid Inc. 1801 California Street, Suite 500, Denver, CO 80202 USA
                               </p>
-        
+
                               <p
                                 style="margin: 0; color: #294661; font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-weight: 300; font-size: 12px; margin-bottom: 5px;">
                                 <a href="https://sendgrid.com/blog/?utm_campaign=website&amp;utm_medium=email&amp;utm_source=sendgrid.com"
@@ -237,9 +237,9 @@ export default function (link) {
               </tr>
             </tbody>
           </table>
-        
+
         </body>
-        
+
         </html>`
     }
 }

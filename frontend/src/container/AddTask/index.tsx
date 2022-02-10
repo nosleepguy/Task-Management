@@ -1,10 +1,19 @@
 import { useState, Fragment } from "react";
-import { AddCircle, Calendar1, Add, Flash, Coffee, Alarm } from "iconsax-react";
+import {
+    AddCircle,
+    Calendar1,
+    Add,
+    Flash,
+    Coffee,
+    Alarm,
+    ColorSwatch,
+} from "iconsax-react";
 import { Menu, Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import DateTimePicker from "react-datetime-picker/dist/entry.nostyle";
 
 import "react-datetime-picker/dist/DateTimePicker.css";
+import { colorList } from "constant";
 
 const people = [
     { name: "Wade Cooper" },
@@ -16,9 +25,13 @@ const people = [
 ];
 
 const AddTaskContainer = () => {
-    const [value, onChange] = useState(new Date());
-    const [selected, setSelected] = useState(people[0]);
-
+    const [deadline, setDeadline] = useState<Date>(new Date());
+    const [label, setLabel] = useState(people[0]);
+    const [content, setContent] = useState<string>();
+    const [status, setStatus] = useState<number>(1);
+    const handleContentTask = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setContent(e.target.value);
+    };
     return (
         <div className="rounded-md p-10 h-full pt-0 basis-1/2">
             <div className="flex justify-center items-center mb-5 h-16">
@@ -30,8 +43,11 @@ const AddTaskContainer = () => {
             <textarea
                 className="p-3 mb-2 rounded-lg outline-none w-full h-fit border-2 border-gray-300"
                 placeholder="📝 Add todo..."
+                value={content}
+                onChange={handleContentTask}
             ></textarea>
             <div className="dealine flex">
+                {/* deadline */}
                 <div className="datetime">
                     <p className="w-fit text-xs inline-block py-1 px-1.5 mb-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-orange-600 text-white rounded">
                         Deadline
@@ -61,152 +77,138 @@ const AddTaskContainer = () => {
                                     />
                                 }
                                 minDate={new Date()}
-                                onChange={onChange}
-                                value={value}
+                                onChange={setDeadline}
+                                value={deadline}
                             />
                         </div>
                     </div>
                 </div>
+                {/* status */}
                 <div className="status ml-5">
                     <span className="w-fit text-xs inline-block py-1 px-1.5 mb-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
                         Status
                     </span>
                     <div className="wrap flex">
-                        <div className="time flex flex-col">
-                            <div className="">
-                                <Menu
-                                    as="div"
-                                    className="relative inline-block text-left"
-                                >
-                                    <div>
-                                        <Menu.Button
-                                            className="inline-flex justify-center w-full px-4 py-2 
+                        <Menu
+                            as="div"
+                            className="relative inline-block text-left"
+                        >
+                            <div>
+                                <Menu.Button
+                                    className="inline-flex justify-center w-full px-4 py-2 
                                 bg-white rounded-md border-gray-300 border-2
                                 focus:outline-none focus-visible:ring-2 focus-visible:ring-white 
                                 focus-visible:ring-opacity-75"
-                                        >
-                                            Todo Status
-                                            <Flash
-                                                className="ml-2"
-                                                size="20"
-                                                color="currentColor"
-                                                variant="Outline"
-                                            />
-                                        </Menu.Button>
-                                    </div>
-                                    <Transition
-                                        as={Fragment}
-                                        enter="transition ease-out duration-100"
-                                        enterFrom="transform opacity-0 scale-95"
-                                        enterTo="transform opacity-100 scale-100"
-                                        leave="transition ease-in duration-75"
-                                        leaveFrom="transform opacity-100 scale-100"
-                                        leaveTo="transform opacity-0 scale-95"
-                                    >
-                                        <Menu.Items className="absolute right-0 w-36 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                            <div className="px-1 py-1 ">
-                                                <Menu.Item>
-                                                    {({ active }) => (
-                                                        <button
-                                                            className={`${
-                                                                active
-                                                                    ? "bg-red-500 text-white"
-                                                                    : "text-gray-900"
-                                                            } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                                                        >
-                                                            {active ? (
-                                                                <Alarm
-                                                                    className="mr-2"
-                                                                    size="20"
-                                                                    color="currentColor"
-                                                                    variant="Outline"
-                                                                />
-                                                            ) : (
-                                                                <Alarm
-                                                                    className="mr-2"
-                                                                    size="20"
-                                                                    color="currentColor"
-                                                                    variant="Outline"
-                                                                />
-                                                            )}
-                                                            Hot Water
-                                                        </button>
-                                                    )}
-                                                </Menu.Item>
-                                            </div>
-                                            <div className="px-1 py-1">
-                                                <Menu.Item>
-                                                    {({ active }) => (
-                                                        <button
-                                                            className={`${
-                                                                active
-                                                                    ? "bg-orange-500 text-white"
-                                                                    : "text-gray-900"
-                                                            } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                                                        >
-                                                            {active ? (
-                                                                <Flash
-                                                                    className="mr-2"
-                                                                    size="20"
-                                                                    color="currentColor"
-                                                                    variant="Outline"
-                                                                />
-                                                            ) : (
-                                                                <Flash
-                                                                    className="mr-2"
-                                                                    size="20"
-                                                                    color="currentColor"
-                                                                    variant="Outline"
-                                                                />
-                                                            )}
-                                                            Working
-                                                        </button>
-                                                    )}
-                                                </Menu.Item>
-                                            </div>
-                                            <div className="px-1 py-1">
-                                                <Menu.Item>
-                                                    {({ active }) => (
-                                                        <button
-                                                            className={`${
-                                                                active
-                                                                    ? "bg-blue-500 text-white"
-                                                                    : "text-gray-900"
-                                                            } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                                                        >
-                                                            {active ? (
-                                                                <Coffee
-                                                                    className="mr-2"
-                                                                    size="20"
-                                                                    color="currentColor"
-                                                                    variant="Outline"
-                                                                />
-                                                            ) : (
-                                                                <Coffee
-                                                                    className="mr-2"
-                                                                    size="20"
-                                                                    color="currentColor"
-                                                                    variant="Outline"
-                                                                />
-                                                            )}
-                                                            Hand free
-                                                        </button>
-                                                    )}
-                                                </Menu.Item>
-                                            </div>
-                                        </Menu.Items>
-                                    </Transition>
-                                </Menu>
+                                >
+                                    Todo Status
+                                    <Flash
+                                        className="ml-2"
+                                        size="20"
+                                        color="currentColor"
+                                        variant="Outline"
+                                    />
+                                </Menu.Button>
                             </div>
-                        </div>
+                            <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95"
+                            >
+                                <Menu.Items className="absolute right-0 w-36 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <div className="px-1 py-1">
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={`${
+                                                        active
+                                                            ? "bg-blue-500 text-white"
+                                                            : "text-gray-900"
+                                                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                                    onClick={() => setStatus(1)}
+                                                >
+                                                    <Coffee
+                                                        className="mr-2"
+                                                        size="20"
+                                                        color="currentColor"
+                                                        variant={
+                                                            active
+                                                                ? "Bold"
+                                                                : "Outline"
+                                                        }
+                                                    />
+                                                    Hand free
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                    </div>
+                                    <div className="px-1 py-1">
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={`${
+                                                        active
+                                                            ? "bg-orange-500 text-white"
+                                                            : "text-gray-900"
+                                                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                                    onClick={() => setStatus(2)}
+                                                >
+                                                    <Flash
+                                                        className="mr-2"
+                                                        size="20"
+                                                        color="currentColor"
+                                                        variant={
+                                                            active
+                                                                ? "Bold"
+                                                                : "Outline"
+                                                        }
+                                                    />
+                                                    Working
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                    </div>
+                                    <div className="px-1 py-1 ">
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={`${
+                                                        active
+                                                            ? "bg-red-500 text-white"
+                                                            : "text-gray-900"
+                                                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                                    onClick={() => setStatus(3)}
+                                                >
+                                                    <Alarm
+                                                        className="mr-2"
+                                                        size="20"
+                                                        color="currentColor"
+                                                        variant={
+                                                            active
+                                                                ? "Bold"
+                                                                : "Outline"
+                                                        }
+                                                    />
+                                                    Hot Water
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                    </div>
+                                </Menu.Items>
+                            </Transition>
+                        </Menu>
                     </div>
                 </div>
+                {/* label */}
                 <div className="label ml-5">
                     <span className="w-fit text-xs inline-block py-1 px-1.5 mb-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
                         Label
                     </span>
                     <div className="w-72">
-                        <Listbox value={selected} onChange={setSelected}>
+                        <Listbox value={label} onChange={setLabel}>
                             <div className="relative">
                                 <Listbox.Button
                                     className="relative w-full py-2.5 pl-3 pr-10 text-left 
@@ -217,7 +219,7 @@ const AddTaskContainer = () => {
                                 sm:text-sm"
                                 >
                                     <span className="block truncate">
-                                        {selected.name}
+                                        {label.name}
                                     </span>
                                     <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                                         <SelectorIcon
@@ -280,6 +282,69 @@ const AddTaskContainer = () => {
                                 </Transition>
                             </div>
                         </Listbox>
+                    </div>
+                </div>
+                {/* add label */}
+                <div className="add-label ml-5">
+                    <p className="w-fit text-xs inline-block py-1 px-1.5 mb-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-orange-600 text-white rounded">
+                        Add label
+                    </p>
+                    <div className="wrap border-gray-300 border-2 rounded-md flex justify-center items-center">
+                        <Menu
+                            as="div"
+                            className="relative inline-block h-10 text-left p-0 m-0"
+                        >
+                            <Menu.Button
+                                as="div"
+                                className="inline-flex justify-center w-full p-0 m-0 bg-white 
+                                focus:outline-none focus-visible:ring-2 focus-visible:ring-white 
+                                focus-visible:ring-opacity-75"
+                            >
+                                <ColorSwatch
+                                    className="box-content bg-sky-100 text-sky-600 m-0 p-[7.5px] hover:text-blue-600"
+                                    size="25"
+                                    variant="Outline"
+                                />
+                            </Menu.Button>
+
+                            <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95"
+                            >
+                                <Menu.Items className="absolute left-0 w-fit origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <div className="px-1 py-1">
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <div className="">
+                                                    <div className="grip grid-rows-5 w-[170px] max-h-[300px] overflow-y-scroll">
+                                                        {colorList.map(
+                                                            (item, index) => {
+                                                                return (
+                                                                    <button
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                        className={`border-2 hover:border-gray-500 rounded 
+                                                                    bg-${item} items-center w-8 h-8 m-px`}
+                                                                    ></button>
+                                                                );
+                                                            }
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </Menu.Item>
+                                    </div>
+                                </Menu.Items>
+                            </Transition>
+                        </Menu>
+                        <input type="text" className="h-10 px-3 outline-none" />
+                        <CheckIcon className="w-7 h-7 box-content text-sky-600 px-[10px]" />
                     </div>
                 </div>
             </div>

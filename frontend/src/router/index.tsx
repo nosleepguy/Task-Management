@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { getUserDataRequest, logout } from "redux/action/auth";
 import { decodeJWT } from "utils/utils";
 
@@ -7,6 +7,8 @@ import PrivateRouter from "./private";
 import PublicRouter from "./public";
 
 const Router: React.FC = (): JSX.Element => {
+    const dataUser = useSelector((state: RootStateOrAny) => state.AuthReducer);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,7 +23,7 @@ const Router: React.FC = (): JSX.Element => {
         }
     }, []);
 
-    return localStorage.getItem("tk") ? (
+    return localStorage.getItem("tk") && dataUser.email ? (
         <PrivateRouter />
     ) : (
         <PublicRouter />

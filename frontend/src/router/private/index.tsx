@@ -8,8 +8,6 @@ import NotFound from "components/NotFound";
 import { decodeJWT } from "utils/utils";
 
 const PrivateRouter = () => {
-    const dataUser = useSelector((state: RootStateOrAny) => state.AuthReducer);
-
 
     return (
         <Routes>

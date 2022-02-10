@@ -29,11 +29,30 @@ const AddTaskContainer = () => {
     const [label, setLabel] = useState(people[0]);
     const [content, setContent] = useState<string>();
     const [status, setStatus] = useState<number>(1);
+    const [colorLabelSelected, setColorLabelSelected] =
+        useState<string>("#10b981");
+
     const handleContentTask = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
     };
+
+    const customDate = () => {
+        let listDateDisable = document.querySelectorAll(
+            ".react-calendar__month-view__days__day"
+        );
+        let a = Array.from(listDateDisable);
+
+        listDateDisable.forEach((item) => {
+            if(item.getAttribute("disabled") != null) {
+                item.classList.add("disabled-date");
+            }
+        });
+    };
     return (
-        <div className="rounded-md p-10 h-full pt-0 basis-1/2">
+        <div
+            className="rounded-md p-10 pt-0 basis-1/2"
+            style={{ height: "max-content" }}
+        >
             <div className="flex justify-center items-center mb-5 h-16">
                 <h1 className="text-4xl font-bold h-fit ml-5">Add Task</h1>
             </div>
@@ -46,9 +65,9 @@ const AddTaskContainer = () => {
                 value={content}
                 onChange={handleContentTask}
             ></textarea>
-            <div className="dealine flex">
+            <div className="dealine flex flex-wrap">
                 {/* deadline */}
-                <div className="datetime">
+                <div className="datetime mr-5">
                     <p className="w-fit text-xs inline-block py-1 px-1.5 mb-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-orange-600 text-white rounded">
                         Deadline
                     </p>
@@ -79,12 +98,13 @@ const AddTaskContainer = () => {
                                 minDate={new Date()}
                                 onChange={setDeadline}
                                 value={deadline}
+                                onCalendarOpen={customDate}
                             />
                         </div>
                     </div>
                 </div>
                 {/* status */}
-                <div className="status ml-5">
+                <div className="status mr-5">
                     <span className="w-fit text-xs inline-block py-1 px-1.5 mb-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
                         Status
                     </span>
@@ -203,7 +223,7 @@ const AddTaskContainer = () => {
                     </div>
                 </div>
                 {/* label */}
-                <div className="label ml-5">
+                <div className="label mr-5">
                     <span className="w-fit text-xs inline-block py-1 px-1.5 mb-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
                         Label
                     </span>
@@ -285,7 +305,7 @@ const AddTaskContainer = () => {
                     </div>
                 </div>
                 {/* add label */}
-                <div className="add-label ml-5">
+                <div className="add-label">
                     <p className="w-fit text-xs inline-block py-1 px-1.5 mb-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-orange-600 text-white rounded">
                         Add label
                     </p>
@@ -296,12 +316,12 @@ const AddTaskContainer = () => {
                         >
                             <Menu.Button
                                 as="div"
-                                className="inline-flex justify-center w-full p-0 m-0 bg-white 
+                                className="relative inline-flex justify-center w-full p-0 m-0 bg-white 
                                 focus:outline-none focus-visible:ring-2 focus-visible:ring-white 
                                 focus-visible:ring-opacity-75"
                             >
                                 <ColorSwatch
-                                    className="box-content bg-sky-100 text-sky-600 m-0 p-[7.5px] hover:text-blue-600"
+                                    className="box-content bg-sky-100 text-sky-600 m-0 p-[7.5px] px-[12px] hover:text-blue-600"
                                     size="25"
                                     variant="Outline"
                                 />
@@ -321,19 +341,28 @@ const AddTaskContainer = () => {
                                         <Menu.Item>
                                             {({ active }) => (
                                                 <div className="">
-                                                    <div className="grip grid-rows-5 w-[170px] max-h-[300px] overflow-y-scroll">
+                                                    <div
+                                                        className="grip grid-rows-5 max-h-[300px] overflow-y-scroll"
+                                                        style={{
+                                                            width: "180px",
+                                                        }}
+                                                    >
                                                         {colorList.map(
-                                                            (item, index) => {
-                                                                return (
-                                                                    <button
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        className={`border-2 hover:border-gray-500 rounded 
-                                                                    bg-${item} items-center w-8 h-8 m-px`}
-                                                                    ></button>
-                                                                );
-                                                            }
+                                                            (item, index) => (
+                                                                <button
+                                                                    onClick={() =>
+                                                                        setColorLabelSelected(
+                                                                            item
+                                                                        )
+                                                                    }
+                                                                    key={index}
+                                                                    className={`border-2 hover:border-gray-500 rounded items-center w-8 h-8 m-px`}
+                                                                    style={{
+                                                                        backgroundColor:
+                                                                            item,
+                                                                    }}
+                                                                ></button>
+                                                            )
                                                         )}
                                                     </div>
                                                 </div>
@@ -343,7 +372,11 @@ const AddTaskContainer = () => {
                                 </Menu.Items>
                             </Transition>
                         </Menu>
-                        <input type="text" className="h-10 px-3 outline-none" />
+                        <input
+                            type="text"
+                            className="h-10 px-3 outline-none"
+                            style={{ color: colorLabelSelected }}
+                        />
                         <CheckIcon className="w-7 h-7 box-content text-sky-600 px-[10px]" />
                     </div>
                 </div>

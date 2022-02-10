@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import rootReducer from "redux/reducer";
 
-import "./index.css";
+import "styles/index.css";
 import App from "./App";
 
 const middlewares = [thunk];

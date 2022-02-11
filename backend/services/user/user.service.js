@@ -126,45 +126,4 @@ export default class UserServices {
             return responseError(error || UserError.UNKNOWN_ERROR)
         }
     }
-    async getActivities(idUser) {
-        try {
-            const postPublished = await db.post.find({ owner_id: ObjectId(idUser) }).count();
-            const commentWritten = await db.post.find({ owner_id: ObjectId(idUser) });
-            const result = {
-                postPublished,
-                commentWritten,
-            };
-            return responseSuccess(result);
-        } catch (error) {
-            return responseError(error || CommonError.UNKNOWN_ERROR)
-        }
-    }
-    async getMyPostPublished(idUser, page, limit) {
-        try {
-            const result = await db.post.aggregate([
-                {
-                    '$match': {
-                        'owner_id': new ObjectId(`${idUser}`)
-                    }
-                },
-                {
-                    '$sort': {
-                        'createdAt': -1
-                    }
-                }, {
-                    '$skip': page * limit
-                }, {
-                    '$lookup': {
-                        'from': 'tag',
-                        'localField': 'tags',
-                        'foreignField': 'name',
-                        'as': 'tags'
-                    }
-                }
-            ]).toArray();
-            return responseSuccess(result);
-        } catch (error) {
-            return responseError(error || CommonError.UNKNOWN_ERROR)
-        }
-    }
 }

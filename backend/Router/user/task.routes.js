@@ -5,7 +5,7 @@ const userTaskController = new UserTaskController();
 export default [
     {
         method: 'post',
-        route: '/api/user/post',
+        route: '/api/user/tasks',
         controller: userTaskController,
         middleware: [Authorization],
         action: userTaskController.upTask

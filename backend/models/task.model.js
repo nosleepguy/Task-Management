@@ -1,10 +1,11 @@
 import { generateTime } from '../Utils/index.js';
 export default class Task {
-    constructor(content, deadline, status, label) {
+    constructor(owner_id, content, deadline, status, labelId) {
+        this.owner_id = owner_id;
         this.content = content;
         this.deadline = deadline;
         this.status = status;
-        this.label = label;
+        this.labelId = labelId;
         this.completed = false;
         this.createdAt = generateTime();
         this.lastModified = generateTime();

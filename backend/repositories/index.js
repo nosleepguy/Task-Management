@@ -2,6 +2,7 @@ import { MongoClient } from 'mongodb';
 export const db = {
     user: null,
     task: null,
+    label: null,
 };
 
 export const initDatabase = () => {
@@ -12,5 +13,6 @@ export const initDatabase = () => {
         const connected = client.db("TaskManagement");
         db.user = connected.collection("user");
         db.task = connected.collection("task");
+        db.label = connected.collection("label");
     })
 }

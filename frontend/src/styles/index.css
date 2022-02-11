@@ -407,6 +407,15 @@ Ensure the default browser behavior of the `hidden` attribute.
 .z-50 {
     z-index: 50;
 }
+.z-0 {
+    z-index: 0;
+}
+.z-40 {
+    z-index: 40;
+}
+.z-30 {
+    z-index: 30;
+}
 .z-10 {
     z-index: 10;
 }
@@ -1279,7 +1288,7 @@ abbr {
 .disabled-date:first-child {
     border-radius: 5px 0 0 0;
 }
-.disabled-date:nth-last-child(2) {
+.disabled-date:last-child {
     border-radius: 0 0 5px 0;
 }
 .hover\:border-gray-500:hover {

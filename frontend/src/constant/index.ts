@@ -1,3 +1,4 @@
+
 export const colorList: Array<string> = [
     "#6b7280",
     "#4b5563",

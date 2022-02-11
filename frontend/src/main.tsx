@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import rootReducer from "redux/reducer";
 
 import "styles/index.css";
+import 'react-toastify/dist/ReactToastify.css';
 import App from "./App";
 
 const middlewares = [thunk];

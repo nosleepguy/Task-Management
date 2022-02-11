@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import { TodoReducer } from "./Todo";
 import { AuthReducer } from "./Auth";
+import { TaskReducer } from "./Task";
+import { LabelReducer } from "./Label";
 
 const rootReducer = combineReducers({
-    TodoReducer,
     AuthReducer,
+    TaskReducer,
+    LabelReducer,
 });
 export type RootState = ReturnType<typeof rootReducer>;
 

@@ -1,4 +1,4 @@
-import * as Type from "./../constants";
+import * as Type from "../constants";
 
 interface action {
     type: string;
@@ -6,9 +6,9 @@ interface action {
 }
 const initialState = {};
 
-export const TodoReducer = (state = initialState, action: action) => {
+export const TaskReducer = (state = initialState, action: action) => {
     switch (action.type) {
-        case Type.ADD_TODO: {
+        case Type.ADD_TASK: {
             return {
                 ...state,
                 ...action.payload,

@@ -4,7 +4,7 @@ import CategoryContainer from "container/Category";
 
 const HomePage = () => {
     return (
-        <div className="flex h-[calc(100vh-64px)] bg-slate-100">
+        <div className="flex h-[calc(100vh-64px)] bg-[#F7F8FE]">
             <CategoryContainer />
             {/* <div className="allTasks"> */}
             <AllTaskContainer />

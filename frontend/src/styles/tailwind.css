@@ -18,6 +18,7 @@ body {
     background: #fff;
     border-radius: 10px;
     padding: 10px;
+    margin-top: 5px;
     width: 100%;
 }
 .react-calendar__navigation {
@@ -143,4 +144,15 @@ abbr {
 }
 .disabled-date:last-child {
     border-radius: 0 0 5px 0;
+}
+
+
+/* --------------------------- */
+.text-truncate{
+    display:-webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
 }

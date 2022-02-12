@@ -9,13 +9,14 @@ export const RECOVERY = "RECOVERY";
 export const GET_USER_DATA = "GET_USER_DATA";
 
 export const ADD_TASK = "ADD_TASK";
+export const GET_ALL_TASK = "GET_ALL_TASK";
 
 
 export const ADD_LABEL = "ADD_LABEL";
 export const GET_LABEL = "GET_LABEL";
 
 
-
+// ---------------Type---------------
 
 export type LOGIN = typeof LOGIN;
 export type LOGOUT = typeof LOGOUT;
@@ -26,6 +27,7 @@ export type RECOVERY = typeof RECOVERY;
 export type GET_USER_DATA = typeof GET_USER_DATA;
 
 export type ADD_TASK = typeof ADD_TASK;
+export type GET_ALL_TASK = typeof GET_ALL_TASK;
 
 export type ADD_LABEL = typeof ADD_LABEL;
 export type GET_LABEL = typeof GET_LABEL;

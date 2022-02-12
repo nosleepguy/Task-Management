@@ -1,6 +1,6 @@
 import React from "react";
 import { TickCircle, Sort } from "iconsax-react";
-import Todo from "components/Todo";
+import TaskItem from "components/TaskItem";
 
 const CurrentTaskContainer = (): JSX.Element => {
     const [isShowSort, setIsShowSort] = React.useState(false);
@@ -72,7 +72,7 @@ const CurrentTaskContainer = (): JSX.Element => {
                     </div>
                 </div>
             </div>
-            <Todo />
+            <TaskItem />
         </div>
     );
 };

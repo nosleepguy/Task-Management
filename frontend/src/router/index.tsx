@@ -7,7 +7,9 @@ import PrivateRouter from "./private";
 import PublicRouter from "./public";
 
 const Router: React.FC = (): JSX.Element => {
-    const dataUser = useSelector((state: RootStateOrAny) => state.AuthReducer);
+    const dataAuthRedux = useSelector(
+        (state: RootStateOrAny) => state.AuthReducer
+    );
 
     const dispatch = useDispatch();
 
@@ -23,7 +25,7 @@ const Router: React.FC = (): JSX.Element => {
         }
     }, []);
 
-    return localStorage.getItem("tk") && dataUser.email ? (
+    return localStorage.getItem("tk") && dataAuthRedux.email ? (
         <PrivateRouter />
     ) : (
         <PublicRouter />

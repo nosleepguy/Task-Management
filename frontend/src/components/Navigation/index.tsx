@@ -11,11 +11,13 @@ const Navigation = (): JSX.Element => {
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center w-full">
                         <div className="flex-shrink-0">
-                            <img
-                                className="h-8 w-8"
-                                src={TodoLogo}
-                                alt="Workflow"
-                            />
+                            <Link to="/">
+                                <img
+                                    className="h-8 w-8"
+                                    src={TodoLogo}
+                                    alt="Workflow"
+                                />
+                            </Link>
                         </div>
                         <div className="hidden md:block">
                             <div className="ml-10 flex items-baseline space-x-4">
@@ -118,40 +120,40 @@ const Navigation = (): JSX.Element => {
                             ref={ref}
                             className="px-2 pt-2 pb-3 space-y-1 sm:px-3"
                         >
-                            <a
-                                href="#"
+                            <Link
+                                to="/"
                                 className="hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
                             >
                                 Dashboard
-                            </a>
+                            </Link>
 
-                            <a
-                                href="#"
+                            <Link
+                                to="/add-task"
                                 className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                             >
-                                Team
-                            </a>
+                                Add task
+                            </Link>
 
-                            <a
-                                href="#"
+                            <Link
+                                to="/"
                                 className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                             >
                                 Projects
-                            </a>
+                            </Link>
 
-                            <a
-                                href="#"
+                            <Link
+                                to="/"
                                 className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                             >
                                 Calendar
-                            </a>
+                            </Link>
 
-                            <a
-                                href="#"
+                            <Link
+                                to="/"
                                 className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                             >
                                 Reports
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 )}

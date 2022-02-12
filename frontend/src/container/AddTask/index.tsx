@@ -15,8 +15,9 @@ import DateTimePicker from "react-datetime-picker/dist/entry.nostyle";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import { colorList } from "constant";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { addLabelAction, addTaskAction, getLabelAction } from "redux/action";
+import { addLabelAction, getLabelAction } from "redux/action";
 import { notify } from "utils/notify";
+import { addTaskAction } from "redux/action/task";
 
 const StatusList = [
     {
@@ -49,7 +50,7 @@ const StatusList = [
             <Coffee
                 className="mr-2"
                 size="20"
-                color={active | selected ? "#38bdf8" : "currentColor"}
+                color={active | selected ? "#2563eb" : "currentColor"}
                 variant={active | selected ? "Bold" : "Outline"}
             />
         ),
@@ -58,38 +59,40 @@ const StatusList = [
 ];
 
 const AddTaskContainer = () => {
-    const [LabelList, setLabelList] = useState([]);
+    const dispatch = useDispatch();
+    const dataAuthRedux = useSelector(
+        (state: RootStateOrAny) => state.AuthReducer
+    );
+    const dataLabelRedux = useSelector(
+        (state: RootStateOrAny) => state.LabelReducer
+    );
 
+    const [content, setContent] = useState<string>("");
     const [deadline, setDeadline] = useState<Date>(new Date());
+    const [status, setStatus] = useState<any>(StatusList[0]);
+    const [LabelList, setLabelList] = useState([]);
     const [labelSelected, setLabelSelected] = useState({
         _id: "randomnumber",
         name: "Loading...",
     });
+
     const [newLabel, setNewLabel] = useState("");
-    const [content, setContent] = useState<string>("");
-    const [status, setStatus] = useState<any>(StatusList[0]);
     const [colorLabelSelected, setColorLabelSelected] =
         useState<string>("#10b981");
-
-    const dispatch = useDispatch();
-    const authUser = useSelector((state: RootStateOrAny) => state.AuthReducer);
-    const LabelData = useSelector(
-        (state: RootStateOrAny) => state.LabelReducer
-    );
 
     //create task
     const handleUpTask = () => {
         const payload = {
-            owner_id: authUser._id,
+            owner_id: dataAuthRedux._id,
             content,
             deadline: deadline.toISOString(),
             status: status.id,
-            labelId: labelSelected._id,
+            label_id: labelSelected._id,
         };
         if (payload.content.length === 0 || payload.status == undefined) {
             notify("error", "Please fill all field");
         } else {
-            // console.log(payload.content.length);
+            // console.log(payload);
             dispatch(addTaskAction(payload));
         }
     };
@@ -100,7 +103,7 @@ const AddTaskContainer = () => {
             newLabel.trim();
             dispatch(
                 addLabelAction({
-                    owner_id: authUser._id,
+                    owner_id: dataAuthRedux._id,
                     name: newLabel,
                     hashColor: colorLabelSelected,
                 })
@@ -122,21 +125,21 @@ const AddTaskContainer = () => {
 
     // lấy label về
     useEffect(() => {
-        dispatch(getLabelAction({ owner_id: authUser._id }));
-    }, [authUser]);
+        dispatch(getLabelAction({ owner_id: dataAuthRedux._id }));
+    }, [dataAuthRedux]);
 
     //setlabel khi lấy được list label về
     useEffect(() => {
-        setLabelList(LabelData);
-        LabelData.length > 0 && setLabelSelected(LabelData[0]);
-    }, [LabelData]);
+        setLabelList(dataLabelRedux);
+        dataLabelRedux.length > 0 && setLabelSelected(dataLabelRedux[0]);
+    }, [dataLabelRedux]);
 
     useEffect(() => {
         console.log(labelSelected);
     }, [labelSelected]);
     return (
         <div
-            className="rounded-md p-10 pt-0 basis-1/2"
+            className="rounded-md p-10 pt-0 basis-1/2 text-regal-blue"
             style={{ height: "max-content" }}
         >
             <div className="flex justify-center items-center mb-5 h-16">
@@ -191,7 +194,7 @@ const AddTaskContainer = () => {
                 </div>
 
                 {/* status */}
-                <div className="label mr-5 z-40">
+                <div className="label mr-5 z-50">
                     <span className="w-fit text-xs inline-block py-1 px-1.5 mb-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
                         Status
                     </span>

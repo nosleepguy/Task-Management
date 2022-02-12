@@ -10,13 +10,13 @@ export default [
         middleware: [Authorization],
         action: userTaskController.upTask
     },
-    // {
-    //     method: 'get',
-    //     route: '/api/user/post',
-    //     controller: userTaskController,
-    //     middleware: [],
-    //     action: userTaskController.getListPreviewPost
-    // },
+    {
+        method: 'get',
+        route: '/api/user/tasks',
+        controller: userTaskController,
+        middleware: [Authorization],
+        action: userTaskController.getAllTask
+    },
     // {
     //     method: 'get',
     //     route: '/api/user/post/detail',

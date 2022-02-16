@@ -17,7 +17,17 @@ export default class LabelServices {
     }
     async getLabel(owner_id) {
         try {
-            const result = await db.label.find({ owner_id: ObjectId(owner_id) }).toArray();
+            const result = await db.label.aggregate([
+                {
+                    '$match': {
+                        'owner_id': new ObjectId(`${owner_id}`)
+                    }
+                }, {
+                    '$unset': [
+                        'hashColor', 'createdAt', 'lastModified', 'softDelete'
+                    ]
+                }
+            ]).toArray();
             return responseSuccess(result);
         } catch (error) {
             return responseError(error || PostError.POST_NOT_FOUND)

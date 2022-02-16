@@ -5,9 +5,9 @@ import { responseError, responseSuccess } from '../../Utils/index.js';
 import Task from '../../models/task.model.js';
 export default class TaskServices {
 
-    async upTask(owner_id, content, deadline, status, label_id) {
+    async upTask(owner_id, dataContent, deadline, status, label_id) {
         try {
-            const newTask = new Task(owner_id, content, deadline, status, label_id);
+            const newTask = new Task(owner_id, dataContent, deadline, status, label_id);
             await db.task.insertOne(newTask);
             return responseSuccess(newTask);
         } catch (error) {

@@ -1,21 +1,23 @@
-import { useEffect } from "react";
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { getUserDataRequest, logout } from "redux/action/auth";
-import HomePage from "pages/home";
-import AddTaskPage from "pages/addTask";
-import NotFound from "components/NotFound";
-import { decodeJWT } from "utils/utils";
+const HomePage = lazy(() => import("pages/Home"));
+const AddTaskPage = lazy(() => import("pages/AddTask"));
+const DetailTaskPage = lazy(() => import("pages/DetailTask"));
+const NotFound = lazy(() => import("components/NotFound"));
+
+import Loading from "components/Loading";
 
 const PrivateRouter = () => {
-
     return (
-        <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/add-task" element={<AddTaskPage />} />
-            {/* <Route path="/complete-task" element={<CompleteTaskPage />} /> */}
-            <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<Loading />}>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/add-task" element={<AddTaskPage />} />
+                <Route path="/:label/:id" element={<DetailTaskPage />} />
+                {/* <Route path="/complete-task" element={<CompleteTaskPage />} /> */}
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </Suspense>
     );
 };
 

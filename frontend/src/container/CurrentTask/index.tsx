@@ -19,7 +19,7 @@ const CurrentTaskContainer = (): JSX.Element => {
             <input
                 className="px-3 py-2 w-full rounded-md mb-3 morphin outline-none border-2 border-gray-300"
                 type="text"
-                placeholder="🔍 Search your todo..."
+                placeholder="🔍 Search your task..."
             />
             <div className="flex">
                 <button className="flex px-3 py-2 bg-sky-500 rounded text-white">

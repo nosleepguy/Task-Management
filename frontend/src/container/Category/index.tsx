@@ -16,6 +16,7 @@ const CategoryContainer = () => {
                 if (myTask[item.labelData.name] === undefined) {
                     myTask[item.labelData.name] = {
                         name: item.labelData.name,
+                        hashColor: item.labelData.hashColor,
                         count: 1,
                     };
                 } else {

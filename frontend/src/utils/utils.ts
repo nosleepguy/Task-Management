@@ -56,3 +56,11 @@ export const formatTimeString = (dateISO: string) => {
     let day = convertDay(current_day);
     return { year, month, date, day, hours, ampm, minutes, seconds };
 };
+export const combineDateAndTimeToISOString = (date: string, time: string) => {
+    const dateConverted = new Date(date);
+    const timeConverted = new Date(time);
+    dateConverted.setHours(timeConverted.getHours());
+    dateConverted.setMinutes(timeConverted.getMinutes());
+    dateConverted.setSeconds(timeConverted.getSeconds());
+    return new Date(dateConverted).toISOString();
+}

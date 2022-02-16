@@ -40,7 +40,7 @@ export const getLabelAction = (payload: any) => {
                     type: Types.GET_LABEL,
                     payload: res,
                 });
-                notify("success", "Get label success");
+                // notify("success", "Get label success");
             });
         } catch (err) {
             console.error(err);

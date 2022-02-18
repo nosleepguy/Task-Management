@@ -1,4 +1,5 @@
 node_modules
+/frontend/styles/index.css
 .DS_Store
 dist
 dist-ssr

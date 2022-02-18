@@ -43,18 +43,18 @@ const Navigation = (): JSX.Element => {
                                 </Link>
 
                                 <Link
+                                    to="/magane-label"
+                                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                >
+                                    Manage Label
+                                </Link>
+                                <Link
                                     to="calendar"
                                     className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                 >
                                     Calendar
                                 </Link>
 
-                                <Link
-                                    to="/reports"
-                                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                >
-                                    Reports
-                                </Link>
                             </div>
                         </div>
                     </div>

@@ -1,301 +1,93 @@
-import { useState, useEffect, forwardRef } from "react";
-import {
-    AddCircle,
-    Clock,
-    Flash,
-    Coffee,
-    Alarm,
-} from "iconsax-react";
-import { DatePicker, TimeInput } from "@mantine/dates";
-import { Select, Group, Text, ColorInput, TextInput } from "@mantine/core";
-import { RichTextEditor } from "@mantine/rte";
+import { useEffect } from 'react';
 
-import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { addLabelAction, getLabelAction } from "redux/action";
-import { notify } from "utils/notify";
-import { addTaskAction } from "redux/action/task";
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { addLabelAction, getLabelAction } from 'redux/action/label';
+import { addTaskAction } from 'redux/action/task';
 
-import dayjs from "dayjs";
-import { combineDateAndTimeToISOString } from "utils/utils";
+import { notify } from 'utils/notify';
+import { combineDateAndTimeToISOString } from 'utils/utils';
 
-const StatusList = [
-    {
-        label: "Hot Water",
-        value: "3",
-        icon: (
-            <Alarm className="mr-2" size="20" color="#dc2626" variant="Bold" />
-        ),
-    },
-    {
-        label: "Working",
-        value: "2",
-        icon: (
-            <Flash className="mr-2" size="20" color="#f59e0b" variant="Bold" />
-        ),
-    },
-    {
-        label: "Hand Free",
-        value: "1",
-        icon: (
-            <Coffee className="mr-2" size="20" color="#2563eb" variant="Bold" />
-        ),
-    },
-];
+import TaskForm from 'components/TaskForm';
 
 const AddTaskContainer = () => {
-    const dispatch = useDispatch();
-    const dataAuthRedux = useSelector(
-        (state: RootStateOrAny) => state.AuthReducer
-    );
-    const dataLabelRedux = useSelector(
-        (state: RootStateOrAny) => state.LabelReducer
-    );
-    //state for task
-    const [dataContent, setDataContent] = useState<string>("Write something...");
-    const [deadlineDate, setDeadlineDate] = useState<Date>();
-    const [deadlineTime, setDeadlineTime] = useState<Date>();
-    const [status, setStatus] = useState<number>();
-    const [labelSelected, setLabelSelected] = useState<string>();
+	const dispatch = useDispatch();
+	const dataAuthRedux = useSelector((state: RootStateOrAny) => state.AuthReducer);
+	const dataLabelRedux = useSelector((state: RootStateOrAny) => state.LabelReducer);
 
-    //state for new label
-    const [newLabel, setNewLabel] = useState<string>("");
-    const [colorLabelSelected, setColorLabelSelected] = useState<string>();
+	//create task
+	const handleUpTask = (payloadData: any) => {
+		const { dataContent, deadlineDate, deadlineTime, status, labelSelected } = payloadData;
+		if (
+			dataContent === '<p><br></p>' ||
+			deadlineDate == undefined ||
+			deadlineTime == undefined ||
+			status == 0 ||
+			labelSelected == undefined
+		) {
+			notify('error', 'Please fill all field');
+		} else {
+			const payload = {
+				owner_id: dataAuthRedux._id,
+				dataContent,
+				deadline: combineDateAndTimeToISOString(
+					deadlineDate.toISOString(),
+					deadlineTime.toISOString()
+				),
+				status,
+				label_id: labelSelected,
+			};
+			dispatch(addTaskAction(payload));
 
-    //create task
-    const handleUpTask = () => {
-        if (
-            dataContent === "<p><br></p>" ||
-            deadlineDate == undefined ||
-            deadlineTime == undefined ||
-            status == 0 ||
-            labelSelected == undefined
-        ) {
-            notify("error", "Please fill all field");
-        } else {
-            const payload = {
-                owner_id: dataAuthRedux._id,
-                dataContent,
-                deadline: combineDateAndTimeToISOString(
-                    deadlineDate.toISOString(),
-                    deadlineTime.toISOString()
-                ),
-                status,
-                label_id: labelSelected,
-            };
-            // console.log("🚀 ~ file: index.tsx ~ line 79 ~ handleUpTask ~ payload", payload)
-            dispatch(addTaskAction(payload));
-        }
-    };
+			return true;
+		}
+	};
 
-    //create label
-    const handleUpLabel = () => {
-        if (newLabel.length > 0) {
-            newLabel.trim();
-            dispatch(
-                addLabelAction({
-                    owner_id: dataAuthRedux._id,
-                    name: newLabel,
-                    hashColor: colorLabelSelected,
-                })
-            );
-            setNewLabel("");
-        }
-    };
+	//create label
+	const handleUpLabel = (payloadData: any) => {
+		const { name, hashColor } = payloadData;
+		if (name.length > 0) {
+			name.trim();
+			dispatch(
+				addLabelAction({
+					owner_id: dataAuthRedux._id,
+					name,
+					hashColor,
+				})
+			);
+			// setNewLabel("");
+			//return for clear input
+			return true;
+		}
+	};
 
-    // lấy label về
-    useEffect(() => {
-        dispatch(getLabelAction({ owner_id: dataAuthRedux._id }));
-    }, [dataAuthRedux]);
+	// lấy label về
+	useEffect(() => {
+		dispatch(getLabelAction({ owner_id: dataAuthRedux._id }));
+	}, [dataAuthRedux]);
 
-    //biến đổi để match định dạng form khi lấy được list label về
-    useEffect(() => {
-        dataLabelRedux.length > 0 && setLabelSelected(dataLabelRedux[0]);
-        if (dataLabelRedux.length > 0) {
-            dataLabelRedux.forEach((item: any) => {
-                item["label"] = item.name;
-                item["value"] = item._id;
-            });
-        }
-    }, [dataLabelRedux]);
+	//biến đổi để match định dạng form khi lấy được list label về
+	useEffect(() => {
+		if (dataLabelRedux.length > 0) {
+			dataLabelRedux.forEach((item: any) => {
+				item['label'] = item.name;
+				item['value'] = item._id;
+			});
+		}
+	}, [dataLabelRedux]);
 
-    return (
-        <>
-            <div className="w-full w-max-[2000px] flex flex-col md:flex-row mx-auto rounded-md p-10 text-regal-blue">
-                <RichTextEditor
-                    className="rich-text max-w-[1300px] w-full md:w-[60%]"
-                    classNames={{
-                        root: "rounded-[10px] overflow-hidden",
-                    }}
-                    controls={[
-                        ["bold", "italic", "underline", "strike", "clean"],
-                        ["h1", "h2", "h3", "h4"],
-                        ["unorderedList", "orderedList"],
-                        ["link", "blockquote", "codeBlock"],
-                        ["alignLeft", "alignCenter", "alignRight"],
-                        ["sup", "sub"],
-                    ]}
-                    value={dataContent}
-                    placeholder="Write something..."
-                    onChange={setDataContent}
-                />
-                <div className="date-time w-full md:w-[40%] rounded-[10px] border border-[#ced4da] p-3 bg-white">
-                    <div className="flex flex-wrap">
-                        {/* deadline */}
-                        <div className="mr-0 w-full mb-3 grow">
-                            <p className="w-fit text-xs inline-block py-1 px-1.5 mb-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-orange-600 text-white rounded">
-                                Deadline
-                            </p>
-                            <div className="flex grow">
-                                <DatePicker
-                                    radius={5}
-                                    size="md"
-                                    className="mr-5 w-full"
-                                    placeholder="Choose Date"
-                                    onChange={(e: Date) => setDeadlineDate(e)}
-                                    minDate={dayjs(new Date())
-                                        .startOf("month")
-                                        .add(new Date().getDate() - 1, "days")
-                                        .toDate()}
-                                />
-                                <TimeInput
-                                    className="w-full"
-                                    radius={5}
-                                    size="md"
-                                    clearable={false}
-                                    onChange={(e: Date) => setDeadlineTime(e)}
-                                    icon={
-                                        <Clock
-                                            size="20"
-                                            color="currentColor"
-                                            variant="Bold"
-                                        />
-                                    }
-                                />
-                            </div>
-                        </div>
-
-                        <div className="flex w-full">
-                            {/* status */}
-                            <div className="status grow mr-5">
-                                <span className="w-fit text-xs inline-block py-1 px-1.5 mb-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
-                                    Status
-                                </span>
-                                <Select
-                                    className="w-full"
-                                    radius={5}
-                                    size="md"
-                                    placeholder="Choose Status"
-                                    itemComponent={SelectItem}
-                                    data={StatusList}
-                                    searchable
-                                    clearable
-                                    maxDropdownHeight={400}
-                                    nothingFound="Nobody here"
-                                    onChange={(e: string) => setStatus(+e)}
-                                />
-                            </div>
-
-                            {/* label */}
-                            <div className="label grow">
-                                <span className="w-fit text-xs inline-block py-1 px-1.5 mb-1 leading-none text-center whitespace-nowrap align-baseline font-bold bg-blue-600 text-white rounded">
-                                    Label
-                                </span>
-                                {dataLabelRedux.length > 0 ? (
-                                    <Select
-                                        className="w-full"
-                                        radius={5}
-                                        size="md"
-                                        placeholder="Choose Label"
-                                        maxDropdownHeight={400}
-                                        clearable
-                                        data={dataLabelRedux}
-                                        onChange={(e: string) =>
-                                            setLabelSelected(e)
-                                        }
-                                    />
-                                ) : (
-                                    "Loading..."
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                    <button
-                        className="flex jusify-center mt-3 px-3 py-2 bg-sky-500 rounded-[5px] text-white"
-                        onClick={handleUpTask}
-                    >
-                        <AddCircle
-                            className="mr-2"
-                            size="25"
-                            color="currentColor"
-                            variant="Outline"
-                        />
-                        Add
-                    </button>
-                    <div>
-                        <p
-                            className="text-xs color p-2 bg-white w-fit mx-auto"
-                            style={{ transform: "translateY(15px)" }}
-                        >
-                            Create new Label
-                        </p>
-                        <hr className="py-2" />
-                    </div>
-                    <div>
-                        {/* add label */}
-                        <div className="add-label w-full mt-2">
-                            <div className="flex">
-                                <ColorInput
-                                    className="w-full mr-5"
-                                    format="hex"
-                                    transitionDuration={300}
-                                    radius={5}
-                                    size="md"
-                                    placeholder="Choose color"
-                                    onChange={setColorLabelSelected}
-                                />
-                                <TextInput
-                                    className="w-full"
-                                    radius={5}
-                                    size="md"
-                                    placeholder="Add label name"
-                                    value={newLabel}
-                                    onChange={(e) =>
-                                        setNewLabel(
-                                            e.currentTarget.value.toString()
-                                        )
-                                    }
-                                />
-                            </div>
-                            <button
-                                className="flex jusify-center  mt-3 px-3 py-2 bg-sky-500 rounded-[5px] text-white"
-                                onClick={handleUpLabel}
-                            >
-                                <AddCircle
-                                    className="mr-2"
-                                    size="25"
-                                    color="currentColor"
-                                    variant="Outline"
-                                />
-                                Add
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+	return (
+		<>
+			{dataLabelRedux.length > 0 ? (
+				<TaskForm
+					handleUpTask={handleUpTask}
+					handleUpLabel={handleUpLabel}
+					labelData={dataLabelRedux}
+				/>
+			) : (
+				<div>Loading...</div>
+			)}
+		</>
+	);
 };
-const SelectItem = forwardRef(
-    ({ label, value, icon, ...others }: any, ref: any) => (
-        <div ref={ref} {...others}>
-            <Group noWrap>
-                <p>{icon}</p>
 
-                <div>
-                    <Text className="text-sm">{label}</Text>
-                </div>
-            </Group>
-        </div>
-    )
-);
 export default AddTaskContainer;

@@ -24,7 +24,7 @@ export default class LabelServices {
                     }
                 }, {
                     '$unset': [
-                        'hashColor', 'createdAt', 'lastModified', 'softDelete'
+                        'createdAt', 'lastModified', 'softDelete'
                     ]
                 }
             ]).toArray();

@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 const HomePage = lazy(() => import("pages/Home"));
 const AddTaskPage = lazy(() => import("pages/AddTask"));
-const DetailTaskPage = lazy(() => import("pages/DetailTask"));
+const ManageLabelPage = lazy(() => import("pages/ManageLabel"));
 const NotFound = lazy(() => import("components/NotFound"));
 
 import Loading from "components/Loading";
@@ -13,7 +13,7 @@ const PrivateRouter = () => {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/add-task" element={<AddTaskPage />} />
-                <Route path="/:label/:id" element={<DetailTaskPage />} />
+                <Route path='/manage-label' element={<ManageLabelPage />} />
                 {/* <Route path="/complete-task" element={<CompleteTaskPage />} /> */}
                 <Route path="*" element={<NotFound />} />
             </Routes>

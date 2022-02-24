@@ -18,7 +18,12 @@ body {
 	border-radius: 0 10px 10px 0 !important;
 	border-left: none !important;
 }
-
+.label-item .edit{
+	visibility: hidden;
+}
+.label-item:hover .edit{
+	visibility: visible;
+}
 .popup .mantine-RichTextEditor-root {
 	width: 100% !important;
 }

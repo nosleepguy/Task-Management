@@ -4,6 +4,7 @@ import { DatePicker, TimeInput } from '@mantine/dates';
 import { Select, Group, Text, ColorInput, TextInput } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import dayjs from 'dayjs';
+import UpLabel from 'components/UpLabel';
 
 const StatusList = [
 	{
@@ -28,6 +29,10 @@ interface TaskFormProps {
 	handleUpLabel: (data: any) => void;
 	labelData: any;
 }
+interface LabelType {
+	name: string;
+	hashColor: string;
+}
 
 const TaskForm = ({ handleUpTask, handleUpLabel, labelData }: TaskFormProps) => {
 	//state for task
@@ -36,10 +41,6 @@ const TaskForm = ({ handleUpTask, handleUpLabel, labelData }: TaskFormProps) => 
 	const [deadlineTime, setDeadlineTime] = useState<Date>();
 	const [status, setStatus] = useState<number>(0);
 	const [labelSelected, setLabelSelected] = useState<string>();
-
-	//state for new label
-	const [newLabel, setNewLabel] = useState<string>('');
-	const [colorLabelSelected, setColorLabelSelected] = useState<string>();
 
 	const onHandleUpTask = () => {
 		const payload = {
@@ -51,10 +52,10 @@ const TaskForm = ({ handleUpTask, handleUpLabel, labelData }: TaskFormProps) => 
 		};
 		handleUpTask(payload);
 	};
-	const onHandleUpLabel = () => {
+	const onHandleUpLabel = ({ name, hashColor }: LabelType) => {
 		const payload = {
-			name: newLabel,
-			hashColor: colorLabelSelected,
+			name,
+			hashColor,
 		};
 		handleUpLabel(payload);
 	};
@@ -165,35 +166,7 @@ const TaskForm = ({ handleUpTask, handleUpLabel, labelData }: TaskFormProps) => 
 						<hr className="py-2" />
 					</div>
 					<div>
-						{/* add label */}
-						<div className="add-label w-full mt-2">
-							<div className="flex">
-								<ColorInput
-									className="w-full mr-5"
-									format="hex"
-									transitionDuration={300}
-									radius={5}
-									size="md"
-									placeholder="Choose color"
-									onChange={setColorLabelSelected}
-								/>
-								<TextInput
-									className="w-full"
-									radius={5}
-									size="md"
-									placeholder="Add label name"
-									value={newLabel}
-									onChange={(e) => setNewLabel(e.currentTarget.value.toString())}
-								/>
-							</div>
-							<button
-								className="flex jusify-center  mt-3 px-3 py-2 bg-sky-500 rounded-[5px] text-white"
-								onClick={onHandleUpLabel}
-							>
-								<AddCircle className="mr-2" size="25" color="currentColor" variant="Outline" />
-								Add
-							</button>
-						</div>
+						<UpLabel handleUpLabel={onHandleUpLabel} />
 					</div>
 				</div>
 			</div>

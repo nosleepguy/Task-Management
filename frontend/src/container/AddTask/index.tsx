@@ -8,6 +8,7 @@ import { notify } from 'utils/notify';
 import { combineDateAndTimeToISOString } from 'utils/utils';
 
 import TaskForm from 'components/TaskForm';
+import Loading from 'components/Loading';
 
 const AddTaskContainer = () => {
 	const dispatch = useDispatch();
@@ -84,7 +85,7 @@ const AddTaskContainer = () => {
 					labelData={dataLabelRedux}
 				/>
 			) : (
-				<div>Loading...</div>
+				<Loading />
 			)}
 		</>
 	);

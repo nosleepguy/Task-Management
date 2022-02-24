@@ -34,7 +34,7 @@ const Category = ({ data }: any) => {
                         My Tasks
                     </h1>
                     <div className="list-task border-t-2 pt-2 border-gray-200">
-                        <div className="task flex justify-between w-48  py-2 mb-4 px-2 mt-1 rounded-md hover:bg-slate-200 transition duration-200">
+                        <div className="task flex justify-between w-full  py-2 mb-4 px-2 mt-1 rounded-md hover:bg-slate-200 transition duration-200">
                             <span>All Tasks</span>
                             <span className="bg-blue-500 px-2 py-0 text-sm text-white rounded-2xl">
                                 {data.allTask}

@@ -17,7 +17,6 @@ export const LabelReducer = (state = initialState, action: any) => {
                 data.data["label"] = data.data.name;
                 data.data["value"] = data.data._id;
                 delete data.data.createdAt;
-                delete data.data.hashColor;
                 delete data.data.lastModified;
                 delete data.data.softDelete;
                 state.push(data.data);

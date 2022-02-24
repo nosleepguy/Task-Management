@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { addLabelAction, getLabelAction } from 'redux/action/label';
@@ -14,6 +14,7 @@ const AddTaskContainer = () => {
 	const dispatch = useDispatch();
 	const dataAuthRedux = useSelector((state: RootStateOrAny) => state.AuthReducer);
 	const dataLabelRedux = useSelector((state: RootStateOrAny) => state.LabelReducer);
+	const [dataLabelState, setDataLabelState] = useState([]);
 
 	//create task
 	const handleUpTask = (payloadData: any) => {
@@ -63,26 +64,32 @@ const AddTaskContainer = () => {
 
 	// lấy label về
 	useEffect(() => {
-		dispatch(getLabelAction({ owner_id: dataAuthRedux._id }));
-	}, [dataAuthRedux]);
+		if (dataLabelRedux.length <= 0) {
+			dispatch(getLabelAction({ owner_id: dataAuthRedux._id }));
+		}
+	}, []);
 
 	//biến đổi để match định dạng form khi lấy được list label về
 	useEffect(() => {
 		if (dataLabelRedux.length > 0) {
-			dataLabelRedux.forEach((item: any) => {
+			const clone = JSON.parse(JSON.stringify(dataLabelRedux));
+			const result = clone.map((item: any) => {
 				item['label'] = item.name;
 				item['value'] = item._id;
+				delete item.hashColor;
+				return item;
 			});
+			setDataLabelState(result);
 		}
 	}, [dataLabelRedux]);
 
 	return (
 		<>
-			{dataLabelRedux.length > 0 ? (
+			{dataLabelState.length > 0 ? (
 				<TaskForm
 					handleUpTask={handleUpTask}
 					handleUpLabel={handleUpLabel}
-					labelData={dataLabelRedux}
+					labelData={dataLabelState}
 				/>
 			) : (
 				<Loading />

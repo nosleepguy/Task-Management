@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { Edit2 } from 'iconsax-react';
-import { addLabelAction } from 'redux/action/label';
+import { Edit2, Trash } from 'iconsax-react';
+import { addLabelAction, getLabelAction } from 'redux/action/label';
 import UpLabel from 'components/UpLabel';
 
 const ManageLabelContainer = () => {
 	const dispatch = useDispatch();
 	const dataAuthRedux = useSelector((state: RootStateOrAny) => state.AuthReducer);
 	const dataLabelRedux = useSelector((state: RootStateOrAny) => state.LabelReducer);
+
 	const handleUpLabel = (payloadData: any) => {
 		const { name, hashColor } = payloadData;
 		if (name.length > 0) {
@@ -24,9 +25,13 @@ const ManageLabelContainer = () => {
 			return true;
 		}
 	};
+
+	// lấy label về
 	useEffect(() => {
-		console.log(dataLabelRedux);
-	}, [dataLabelRedux]);
+		if (dataLabelRedux.length <= 0) {
+			dispatch(getLabelAction({ owner_id: dataAuthRedux._id }));
+		}
+	}, []);
 	return (
 		<div className="flex flex-col md:flex-row w-full w-max-[2000px] justify-center p-10">
 			<div className="rich-text w-full bg-white border border-[#ced4da] rounded-lg px-3 py-2">
@@ -52,21 +57,20 @@ const ManageLabelContainer = () => {
 					/>
 				</div>
 				<div className="py-3 text-sm">
-					<div className="label-item flex justify-center items-center cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2 transition">
-						<span className="h-5 w-5 m-2 rounded-md" style={{ background: 'red' }}></span>
-						<div className="flex-grow font-medium px-2">Tighten Co.</div>
-						<Edit2 className='edit ml-2' size="20" color="currentColor" />
-					</div>
-					<div className="label-item flex justify-center items-center cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2 transition">
-						<span className="h-5 w-5 m-2 rounded-md" style={{ background: 'red' }}></span>
-						<div className="flex-grow font-medium px-2">Tighten Co.</div>
-						<Edit2 className='edit ml-2' size="20" color="currentColor" />
-					</div>
-					<div className="label-item flex justify-center items-center cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2 transition">
-						<span className="h-5 w-5 m-2 rounded-md" style={{ background: 'red' }}></span>
-						<div className="flex-grow font-medium px-2">Tighten Co.</div>
-						<Edit2 className='edit ml-2' size="20" color="currentColor" />
-					</div>
+					{dataLabelRedux.map((item: any) => (
+						<div
+							key={item._id}
+							className="label-item flex justify-center items-center cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2 transition"
+						>
+							<span
+								className="h-5 w-5 m-2 rounded-md"
+								style={{ background: `${item.hashColor}` }}
+							></span>
+							<div className="flex-grow font-medium px-2">{item.name}</div>
+							<Edit2 className="edit ml-2" size="20" color="currentColor" />
+							<Trash className="edit ml-4" size="20" color="currentColor" />
+						</div>
+					))}
 				</div>
 			</div>
 			<div className="date-time w-full p-4 border border-[#ced4da] rounded-lg">

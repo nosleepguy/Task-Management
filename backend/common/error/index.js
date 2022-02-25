@@ -207,6 +207,20 @@ export const PostError = {
         errorCode: 500,
     },
 };
+export const LabelError = {
+    LALEB_NOT_FOUND: {
+        message: 'Bài viết không tồn tại.',
+        errorCode: 400,
+    },
+    LABEL_CAN_NOT_DELETE: {
+        message: 'Bạn không thể xóa nhãn này do nhãn này đang được sử dụng.',
+        errorCode: 400,
+    },
+    UNKNOWN_ERROR: {
+        message: 'Đã có lỗi xảy ra, vui lòng thử lại sau.',
+        errorCode: 500,
+    },
+};
 
 export const CommentError = {
     COMMENT_NOT_FOUND: {

@@ -90,19 +90,21 @@ export const AuthReducer = (state = initialState, action: AnyAction) => {
         //     return state;
         // }
         case Types.LOGIN: {
+            let cloneState = JSON.parse(JSON.stringify(state));
             console.log(action.payload);
             if (action.payload.data.success) {
                 localStorage.setItem('tk', action.payload.data.data.token);
                 localStorage.setItem('rtk', action.payload.data.data.refreshToken);
-                state = action.payload.data.data.userData;
+                cloneState = action.payload.data.data.userData;
             }
-            return state;
+            return cloneState;
         }
         case Types.GET_USER_DATA: {
+            let cloneState = JSON.parse(JSON.stringify(state));
             console.log(action);
             if (action.payload.data.success) {
-                state = action.payload.data.data[0];
-                return state;
+                cloneState = action.payload.data.data[0];
+                return cloneState;
             }
             return state;
         }

@@ -1,13 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { Edit2, Trash } from 'iconsax-react';
-import { addLabelAction, getLabelAction } from 'redux/action/label';
+import { addLabelAction, deleteLabelAction, getLabelAction } from 'redux/action/label';
 import UpLabel from 'components/UpLabel';
+import { Modal, Group } from '@mantine/core';
 
 const ManageLabelContainer = () => {
 	const dispatch = useDispatch();
 	const dataAuthRedux = useSelector((state: RootStateOrAny) => state.AuthReducer);
 	const dataLabelRedux = useSelector((state: RootStateOrAny) => state.LabelReducer);
+	const [dataLabelState, setDataLabelState] = useState<any>();
+	const [isOpenDelete, setIsOpenDelete] = useState(false);
+	const [isOpenUpdate, setIsOpenUpdate] = useState(false);
 
 	const handleUpLabel = (payloadData: any) => {
 		const { name, hashColor } = payloadData;
@@ -25,6 +29,14 @@ const ManageLabelContainer = () => {
 			return true;
 		}
 	};
+	const handleDeleteLabel = (label_id: string) => {
+		const payload = {
+			owner_id: dataAuthRedux._id,
+			label_id,
+		};
+		dispatch(deleteLabelAction(payload));
+		setIsOpenDelete(false);
+	};
 
 	// lấy label về
 	useEffect(() => {
@@ -32,6 +44,11 @@ const ManageLabelContainer = () => {
 			dispatch(getLabelAction({ owner_id: dataAuthRedux._id }));
 		}
 	}, []);
+
+	useEffect(() => {
+		setDataLabelState(dataLabelRedux);
+	}, [dataLabelRedux]);
+
 	return (
 		<div className="flex flex-col md:flex-row w-full w-max-[2000px] justify-center p-10">
 			<div className="rich-text w-full bg-white border border-[#ced4da] rounded-lg px-3 py-2">
@@ -56,8 +73,8 @@ const ManageLabelContainer = () => {
 						placeholder="Search label name"
 					/>
 				</div>
-				<div className="py-3 text-sm">
-					{dataLabelRedux.map((item: any) => (
+				<div className="py-3 text-sm h-[65vh] overflow-y-scroll">
+					{dataLabelState?.map((item: any) => (
 						<div
 							key={item._id}
 							className="label-item flex justify-center items-center cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2 transition"
@@ -68,7 +85,26 @@ const ManageLabelContainer = () => {
 							></span>
 							<div className="flex-grow font-medium px-2">{item.name}</div>
 							<Edit2 className="edit ml-2" size="20" color="currentColor" />
-							<Trash className="edit ml-4" size="20" color="currentColor" />
+							<Modal centered opened={isOpenDelete} onClose={() => setIsOpenDelete(false)}>
+								<p className="text-2xl">
+									Are you sure delete <span className="font-bold italic">{item.name}</span> ?
+								</p>
+								<button
+									onClick={() => handleDeleteLabel(item._id)}
+									className="bg-ex-purple rounded-md text-white mx-auto mt-4 py-2 px-3"
+								>
+									Yes! Delete
+								</button>
+							</Modal>
+
+							<Group position="center">
+								<Trash
+									onClick={() => setIsOpenDelete(true)}
+									className="edit ml-4"
+									size="20"
+									color="currentColor"
+								/>
+							</Group>
 						</div>
 					))}
 				</div>

@@ -14,6 +14,8 @@ export const GET_ALL_TASK = "GET_ALL_TASK";
 
 export const ADD_LABEL = "ADD_LABEL";
 export const GET_LABEL = "GET_LABEL";
+export const UPDATE_LABEL = "UPDATE_LABEL";
+export const DELETE_LABEL = "DELETE_LABEL";
 
 
 // ---------------Type---------------
@@ -31,3 +33,5 @@ export type GET_ALL_TASK = typeof GET_ALL_TASK;
 
 export type ADD_LABEL = typeof ADD_LABEL;
 export type GET_LABEL = typeof GET_LABEL;
+export type UPDATE_LABEL = typeof UPDATE_LABEL;
+export type DELETE_LABEL = typeof DELETE_LABEL;

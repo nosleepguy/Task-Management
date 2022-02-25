@@ -14,5 +14,19 @@ export default [
         controller: userLabelController,
         middleware: [],
         action: userLabelController.getLabel
+    },
+    {
+        method: 'delete',
+        route: '/api/user/label',
+        controller: userLabelController,
+        middleware: [],
+        action: userLabelController.deleteLabel
+    },
+    {
+        method: 'put',
+        route: '/api/user/label',
+        controller: userLabelController,
+        middleware: [],
+        action: userLabelController.updateLabel
     }
 ]

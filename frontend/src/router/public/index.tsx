@@ -1,6 +1,6 @@
+import Loading from "components/Loading";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Loading from "components/Loading";
 
 const Login = React.lazy(() => import("container/Login"));
 const Register = React.lazy(() => import("container/Register"));

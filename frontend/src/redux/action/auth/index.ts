@@ -1,8 +1,8 @@
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
-
-import axios from "utils/customAxios";
 import * as Types from "redux/constants";
+import axios from "utils/customAxios";
+
 
 export const loginRequest = (payload: any) => {
     return (

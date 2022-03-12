@@ -1,10 +1,11 @@
-import { useState, forwardRef } from 'react';
-import { AddCircle, Clock, Flash, Coffee, Alarm } from 'iconsax-react';
+import { Group, Select, Text } from '@mantine/core';
 import { DatePicker, TimeInput } from '@mantine/dates';
-import { Select, Group, Text, ColorInput, TextInput } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
-import dayjs from 'dayjs';
 import UpLabel from 'components/UpLabel';
+import dayjs from 'dayjs';
+import { ManageLabelButtonType } from 'enum';
+import { AddCircle, Alarm, Clock, Coffee, Flash } from 'iconsax-react';
+import { forwardRef, useState } from 'react';
 
 const StatusList = [
 	{
@@ -29,7 +30,7 @@ interface TaskFormProps {
 	handleUpLabel: (data: any) => void;
 	labelData: any;
 }
-interface LabelType {
+interface LabelArg {
 	name: string;
 	hashColor: string;
 }
@@ -52,7 +53,7 @@ const TaskForm = ({ handleUpTask, handleUpLabel, labelData }: TaskFormProps) => 
 		};
 		handleUpTask(payload);
 	};
-	const onHandleUpLabel = ({ name, hashColor }: LabelType) => {
+	const onHandleUpLabel = ({ name, hashColor }: LabelArg) => {
 		const payload = {
 			name,
 			hashColor,
@@ -166,7 +167,7 @@ const TaskForm = ({ handleUpTask, handleUpLabel, labelData }: TaskFormProps) => 
 						<hr className="py-2" />
 					</div>
 					<div>
-						<UpLabel handleUpLabel={onHandleUpLabel} />
+						<UpLabel handleAction={onHandleUpLabel} type={ManageLabelButtonType.Add} />
 					</div>
 				</div>
 			</div>

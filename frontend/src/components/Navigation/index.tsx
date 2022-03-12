@@ -1,165 +1,230 @@
-import { useState } from "react";
-import { Transition } from "@headlessui/react";
-import TodoLogo from "assets/todo.svg";
-import { Link } from "react-router-dom";
+import { Transition } from '@headlessui/react';
+import TodoLogo from 'assets/todo.svg';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navigation = (): JSX.Element => {
-    const [isOpen, setIsOpen] = useState(false);
-    return (
-        <nav className="bg-gray-800 sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    <div className="flex items-center w-full">
-                        <div className="flex-shrink-0">
-                            <Link to="/">
-                                <img
-                                    className="h-8 w-8"
-                                    src={TodoLogo}
-                                    alt="Workflow"
-                                />
-                            </Link>
-                        </div>
-                        <div className="hidden md:block">
-                            <div className="ml-10 flex items-baseline space-x-4">
-                                <Link
-                                    to="/"
-                                    className=" hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
-                                >
-                                    Dashboard
-                                </Link>
+	const [isOpen, setIsOpen] = useState(false);
+	const [focusTab, setFocusTab] = useState('/');
+	const location = useLocation();
 
-                                <Link
-                                    to="/add-task"
-                                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                >
-                                    Add Task
-                                </Link>
+	useEffect(() => {
+		console.log(
+			'🚀 ~ file: index.tsx ~ line 13 ~ useEffect ~ location.pathname',
+			location.pathname
+		);
+		if (location.pathname == '/') {
+			setFocusTab('/');
+		} else if (location.pathname.includes('add-task')) {
+			setFocusTab('/add-task');
+		} else if (location.pathname.includes('complete-task')) {
+			setFocusTab('/complete-task');
+		} else if (location.pathname.includes('manage-label')) {
+			setFocusTab('/manage-label');
+		} else if (location.pathname.includes('calendar')) {
+			setFocusTab('/calendar');
+		}
+	}, [location.pathname]);
+	return (
+		<nav className="bg-gray-800 sticky top-0 z-50">
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div className="flex items-center justify-between h-16">
+					<div className="flex items-center w-full">
+						<div className="flex-shrink-0">
+							<Link to="/">
+								<img className="h-8 w-8" src={TodoLogo} alt="Workflow" />
+							</Link>
+						</div>
+						<div className="hidden md:block">
+							<div className="ml-10 flex items-baseline space-x-4 text-gray-300">
+								<Link
+									to="/"
+									className={`${
+										focusTab === '/' ? 'bg-gray-700 text-white' : ''
+									} hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium`}
+								>
+									Dashboard
+								</Link>
 
-                                <Link
-                                    to="/complete-task"
-                                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                >
-                                    Complete Task
-                                </Link>
+								<Link
+									to="/add-task"
+									className={`${
+										focusTab === '/add-task' ? 'bg-gray-700 text-white' : ''
+									} hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium`}
+								>
+									Add Task
+								</Link>
 
-                                <Link
-                                    to="/manage-label"
-                                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                >
-                                    Manage Label
-                                </Link>
-                                <Link
-                                    to="calendar"
-                                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                >
-                                    Calendar
-                                </Link>
+								<Link
+									to="/complete-task"
+									className={`${
+										focusTab == '/complete-task' ? 'bg-gray-700 text-white' : ''
+									} hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium`}
+								>
+									Complete Task
+								</Link>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div className="-mr-2 flex md:hidden">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            type="button"
-                            className="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                            aria-controls="mobile-menu"
-                            aria-expanded="false"
-                        >
-                            <span className="sr-only">Open main menu</span>
-                            {!isOpen ? (
-                                <svg
-                                    className="block h-6 w-6"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                </svg>
-                            ) : (
-                                <svg
-                                    className="block h-6 w-6"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            )}
-                        </button>
-                    </div>
-                </div>
-            </div>
+								<Link
+									to="/manage-label"
+									className={`${
+										focusTab == '/manage-label' ? 'bg-gray-700 text-white' : ''
+									} hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium`}
+								>
+									Manage Label
+								</Link>
+								<Link
+									to="/calendar"
+									className={`${
+										focusTab == '/calendar' ? 'bg-gray-700 text-white' : ''
+									} hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium`}
+								>
+									Calendar
+								</Link>
+							</div>
+						</div>
+					</div>
+					<div className="-mr-2 flex md:hidden">
+						<button
+							onClick={() => setIsOpen(!isOpen)}
+							type="button"
+							className="bg-gray-900 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+							aria-controls="mobile-menu"
+							aria-expanded="false"
+						>
+							<span className="sr-only">Open main menu</span>
+							{!isOpen ? (
+								<svg
+									className="block h-6 w-6"
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									aria-hidden="true"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
+										d="M4 6h16M4 12h16M4 18h16"
+									/>
+								</svg>
+							) : (
+								<svg
+									className="block h-6 w-6"
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									aria-hidden="true"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
+										d="M6 18L18 6M6 6l12 12"
+									/>
+								</svg>
+							)}
+						</button>
+					</div>
+				</div>
+			</div>
 
-            <Transition
-                show={isOpen}
-                enter="transition ease-out duration-100 transform"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="transition ease-in duration-75 transform"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-            >
-                {(ref) => (
-                    <div className="md:hidden" id="mobile-menu">
-                        <div
-                            ref={ref}
-                            className="px-2 pt-2 pb-3 space-y-1 sm:px-3"
-                        >
-                            <Link
-                                to="/"
-                                className="hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
-                            >
-                                Dashboard
-                            </Link>
+			<Transition
+				show={isOpen}
+				enter="transition ease-out duration-100 transform"
+				enterFrom="opacity-0 scale-95"
+				enterTo="opacity-100 scale-100"
+				leave="transition ease-in duration-75 transform"
+				leaveFrom="opacity-100 scale-100"
+				leaveTo="opacity-0 scale-95"
+			>
+				{(ref) => (
+					<div className="md:hidden" id="mobile-menu">
+						<div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-gray-300">
+							<Link
+								to="/"
+								className={`${
+									focusTab === '/' ? 'bg-gray-700 text-white' : ''
+								} hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-sm font-medium`}
+							>
+								Dashboard
+							</Link>
 
-                            <Link
-                                to="/add-task"
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            >
-                                Add task
-                            </Link>
+							<Link
+								to="/add-task"
+								className={`${
+									focusTab === '/add-task' ? 'bg-gray-700 text-white' : ''
+								} hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-sm font-medium`}
+							>
+								Add Task
+							</Link>
 
-                            <Link
-                                to="/"
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            >
-                                Projects
-                            </Link>
+							<Link
+								to="/complete-task"
+								className={`${
+									focusTab == '/complete-task' ? 'bg-gray-700 text-white' : ''
+								} hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-sm font-medium`}
+							>
+								Complete Task
+							</Link>
 
-                            <Link
-                                to="/"
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            >
-                                Calendar
-                            </Link>
+							<Link
+								to="/manage-label"
+								className={`${
+									focusTab == '/manage-label' ? 'bg-gray-700 text-white' : ''
+								} hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-sm font-medium`}
+							>
+								Manage Label
+							</Link>
+							<Link
+								to="/calendar"
+								className={`${
+									focusTab == '/calendar' ? 'bg-gray-700 text-white' : ''
+								} hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-sm font-medium`}
+							>
+								Calendar
+							</Link>
+							{/* <Link
+								to="/"
+								className="hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
+							>
+								Dashboard
+							</Link>
 
-                            <Link
-                                to="/"
-                                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                            >
-                                Reports
-                            </Link>
-                        </div>
-                    </div>
-                )}
-            </Transition>
-        </nav>
-    );
+							<Link
+								to="/add-task"
+								className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+							>
+								Add task
+							</Link>
+
+							<Link
+								to="/"
+								className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+							>
+								Projects
+							</Link>
+
+							<Link
+								to="/"
+								className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+							>
+								Calendar
+							</Link>
+
+							<Link
+								to="/"
+								className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+							>
+								Reports
+							</Link> */}
+						</div>
+					</div>
+				)}
+			</Transition>
+		</nav>
+	);
 };
 
 export default Navigation;

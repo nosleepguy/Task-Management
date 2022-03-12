@@ -1,5 +1,5 @@
+import { AnyAction } from 'redux';
 import * as Types from "./../constants";
-import { AnyAction } from 'redux'
 
 const initialState = {};
 

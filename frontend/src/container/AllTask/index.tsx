@@ -1,8 +1,8 @@
+import TaskItem from 'components/TaskItem';
+import { Category, RowHorizontal, RowVertical, Timer } from 'iconsax-react';
 import { useEffect, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { getAllTaskAction } from 'redux/action/task';
-import { Category, Timer, RowHorizontal, RowVertical } from 'iconsax-react';
-import TaskItem from 'components/TaskItem';
+import { completeTaskRequest, deleteTaskRequest, getAllTaskAction } from 'redux/action/task';
 
 const AlLTaskContainer = () => {
 	const dispatch = useDispatch();
@@ -10,6 +10,20 @@ const AlLTaskContainer = () => {
 	const taskDataRedux = useSelector((state: RootStateOrAny) => state.TaskReducer);
 	const [sortByDeadline, setSortByDeadline] = useState<Boolean>(false);
 	const [stateTaskSort, setStateTaskSort] = useState([]);
+
+	const handleCompleteTask = (task_id: string) => {
+		const payload = {
+			task_id,
+			owner_id: dataAuthRedux._id,
+		};
+		dispatch(completeTaskRequest(payload));
+	};
+	const handleDeleteTask = (task_id: string) => {
+		const payload = {
+			task_id,
+		};
+		dispatch(deleteTaskRequest(payload));
+	};
 
 	useEffect(() => {
 		if (sortByDeadline) {
@@ -69,7 +83,12 @@ const AlLTaskContainer = () => {
 			<div className="all-task-container flex flex-wrap w-full h-full overflow-y-scroll justify-start">
 				{stateTaskSort.length > 0 &&
 					stateTaskSort?.map((item: any, index: number) => (
-						<TaskItem key={index} data={item}/>
+						<TaskItem
+							key={index}
+							data={item}
+							handleCompleteTask={handleCompleteTask}
+							handleDeleteTask={handleDeleteTask}
+						/>
 					))}
 			</div>
 		</div>

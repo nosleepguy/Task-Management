@@ -1,14 +1,9 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { notify } from 'utils/notify';
-import axios from 'utils/customAxios';
-
 import * as Types from 'redux/constants';
+import axios from 'utils/customAxios';
+import { notify } from 'utils/notify';
 
-export interface AddLabel {
-	type: Types.ADD_LABEL;
-	payload: object;
-}
 
 export const addLabelAction = (payload: object) => {
 	return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: () => any) => {
@@ -41,13 +36,14 @@ export const getLabelAction = (payload: any) => {
 	};
 };
 
-export const updateLabelAction = (payload: object) => {
+export const updateLabelAction = (payload: any) => {
 	return (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: () => any) => {
 		try {
-			axios.put(`/label/${payload._id}`, payload).then((res) => {
+			axios.put(`/label`, payload).then((res) => {
 				dispatch({
 					type: Types.UPDATE_LABEL,
 					payload: res,
+					data: payload,
 				});
 				notify('success', 'Update label success');
 			});

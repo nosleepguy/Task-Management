@@ -22,3 +22,4 @@ const ThemeContext = ({ children }: any) => {
 };
 
 export { ThemeContext, ThemeContextProvider };
+

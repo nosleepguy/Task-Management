@@ -1,11 +1,11 @@
+import Loading from "components/Loading";
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 const HomePage = lazy(() => import("pages/Home"));
 const AddTaskPage = lazy(() => import("pages/AddTask"));
 const ManageLabelPage = lazy(() => import("pages/ManageLabel"));
 const NotFound = lazy(() => import("components/NotFound"));
 
-import Loading from "components/Loading";
 
 const PrivateRouter = () => {
     return (

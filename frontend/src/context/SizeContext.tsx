@@ -19,3 +19,4 @@ const SizeContext = ({ children }: any) => {
 };
 
 export { SizeContext, SizeContextProvider };
+

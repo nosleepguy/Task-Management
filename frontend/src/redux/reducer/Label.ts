@@ -1,3 +1,4 @@
+import { notify } from 'utils/notify';
 import * as Type from '../constants';
 
 const initialState: any = [];
@@ -25,14 +26,27 @@ export const LabelReducer = (state = initialState, action: any) => {
 				return cloneState;
 			}
 		}
+		case Type.UPDATE_LABEL: {
+			const { data, payload } = action;
+			let cloneState = JSON.parse(JSON.stringify(state));
+			if (payload.data.success) {
+				const index = cloneState.findIndex(
+					(item: any) => item._id === data.label_id
+				);
+				cloneState[index] = data;
+				state = cloneState;
+				return cloneState;
+			}
+		}
 		case Type.DELETE_LABEL: {
 			const { res, label_id  } = action.payload;
-            console.log("🚀 ~ file: Label.ts ~ line 30 ~ LabelReducer ~ data", res, label_id);
 			let cloneState = JSON.parse(JSON.stringify(state));
-			if (res.data.success) {
+			if (res?.data?.success) {
 				cloneState = cloneState.filter((item: any) => item._id !== label_id);
 				state = cloneState;
 				return cloneState;
+			}else{
+				notify('error', res?.data?.message);
 			}
 		}
 		default:

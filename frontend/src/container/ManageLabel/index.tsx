@@ -1,17 +1,21 @@
+import { Modal } from '@mantine/core';
+import UpLabel from 'components/UpLabel';
+import { ManageLabelButtonType } from 'enum';
+import { Edit2, Trash } from 'iconsax-react';
 import { useEffect, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { Edit2, Trash } from 'iconsax-react';
-import { addLabelAction, deleteLabelAction, getLabelAction } from 'redux/action/label';
-import UpLabel from 'components/UpLabel';
-import { Modal, Group } from '@mantine/core';
+import {
+    addLabelAction,
+    deleteLabelAction,
+    getLabelAction,
+    updateLabelAction
+} from 'redux/action/label';
 
 const ManageLabelContainer = () => {
 	const dispatch = useDispatch();
 	const dataAuthRedux = useSelector((state: RootStateOrAny) => state.AuthReducer);
 	const dataLabelRedux = useSelector((state: RootStateOrAny) => state.LabelReducer);
 	const [dataLabelState, setDataLabelState] = useState<any>();
-	const [isOpenDelete, setIsOpenDelete] = useState(false);
-	const [isOpenUpdate, setIsOpenUpdate] = useState(false);
 
 	const handleUpLabel = (payloadData: any) => {
 		const { name, hashColor } = payloadData;
@@ -29,13 +33,23 @@ const ManageLabelContainer = () => {
 			return true;
 		}
 	};
+
 	const handleDeleteLabel = (label_id: string) => {
 		const payload = {
 			owner_id: dataAuthRedux._id,
 			label_id,
 		};
 		dispatch(deleteLabelAction(payload));
-		setIsOpenDelete(false);
+	};
+
+	const handleUpdateLabel = (data: any) => {
+		const payload = {
+			label_id: data.label_id,
+			owner_id: data.owner_id,
+			name: data.name,
+			hashColor: data.hashColor,
+		};
+		dispatch(updateLabelAction(payload));
 	};
 
 	// lấy label về
@@ -75,45 +89,61 @@ const ManageLabelContainer = () => {
 				</div>
 				<div className="py-3 text-sm h-[65vh] overflow-y-scroll">
 					{dataLabelState?.map((item: any) => (
-						<div
+						<ItemLabel
 							key={item._id}
-							className="label-item flex justify-center items-center cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2 transition"
-						>
-							<span
-								className="h-5 w-5 m-2 rounded-md"
-								style={{ background: `${item.hashColor}` }}
-							></span>
-							<div className="flex-grow font-medium px-2">{item.name}</div>
-							<Edit2 className="edit ml-2" size="20" color="currentColor" />
-							<Modal centered opened={isOpenDelete} onClose={() => setIsOpenDelete(false)}>
-								<p className="text-2xl">
-									Are you sure delete <span className="font-bold italic">{item.name}</span> ?
-								</p>
-								<button
-									onClick={() => handleDeleteLabel(item._id)}
-									className="bg-ex-purple rounded-md text-white mx-auto mt-4 py-2 px-3"
-								>
-									Yes! Delete
-								</button>
-							</Modal>
-
-							<Group position="center">
-								<Trash
-									onClick={() => setIsOpenDelete(true)}
-									className="edit ml-4"
-									size="20"
-									color="currentColor"
-								/>
-							</Group>
-						</div>
+							data={item}
+							handleDeleteLabel={handleDeleteLabel}
+							handleUpdateLabel={handleUpdateLabel}
+						/>
 					))}
 				</div>
 			</div>
 			<div className="date-time w-full p-4 border border-[#ced4da] rounded-lg">
-				<UpLabel handleUpLabel={handleUpLabel} />
+				<UpLabel handleAction={handleUpLabel} type={ManageLabelButtonType.Add} />
 			</div>
 		</div>
 	);
 };
+const ItemLabel = ({ data, handleDeleteLabel, handleUpdateLabel }: any) => {
+	const [isOpenDelete, setIsOpenDelete] = useState(false);
+	const [isOpenUpdate, setIsOpenUpdate] = useState(false);
 
+	return (
+		<div
+			key={data._id}
+			className="label-item flex justify-center items-center cursor-pointer text-gray-700 hover:text-blue-400 hover:bg-blue-100 rounded-md px-2 py-2 my-2 transition"
+		>
+			<span className="h-5 w-5 m-2 rounded-md" style={{ background: `${data.hashColor}` }}></span>
+			<div className="flex-grow font-medium px-2">{data.name}</div>
+			<Edit2
+				className="edit ml-2"
+				size="20"
+				color="currentColor"
+				onClick={() => setIsOpenUpdate(true)}
+			/>
+			<Trash
+				onClick={() => setIsOpenDelete(true)}
+				className="edit ml-4"
+				size="20"
+				color="currentColor"
+			/>
+			<Modal centered opened={isOpenDelete} onClose={() => setIsOpenDelete(false)}>
+				<p className="text-2xl">
+					Are you sure delete <span className="font-bold italic">{data.name}</span> ?
+				</p>
+				<button
+					onClick={() => {
+						handleDeleteLabel(data._id), setIsOpenDelete(false);
+					}}
+					className="bg-red-700 rounded-md text-white mx-auto mt-4 py-2 px-3"
+				>
+					Yes! Delete
+				</button>
+			</Modal>
+			<Modal centered opened={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
+				<UpLabel data={data} handleAction={handleUpdateLabel} type={ManageLabelButtonType.Update} />
+			</Modal>
+		</div>
+	);
+};
 export default ManageLabelContainer;

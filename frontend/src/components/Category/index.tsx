@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from "react";
-import { ArrowCircleLeft, ArrowCircleRight } from "iconsax-react";
 import { SizeContextProvider } from "context/SizeContext";
+import { ArrowCircleLeft, ArrowCircleRight } from "iconsax-react";
+import { useContext, useEffect, useState } from "react";
 
 const Category = ({ data }: any) => {
     const size = useContext(SizeContextProvider);

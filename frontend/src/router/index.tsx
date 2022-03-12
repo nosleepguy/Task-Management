@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { getUserDataRequest, logout } from "redux/action/auth";
 import { decodeJWT } from "utils/utils";
-
 import PrivateRouter from "./private";
 import PublicRouter from "./public";
+
 
 const Router: React.FC = (): JSX.Element => {
     const dataAuthRedux = useSelector(

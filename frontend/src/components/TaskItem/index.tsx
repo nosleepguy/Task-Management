@@ -1,10 +1,8 @@
-import { useState } from 'react';
-// import { Link } from 'react-router-dom';
-import { Edit, TickCircle, Flash, Coffee, Alarm, Trash } from 'iconsax-react';
 import { Modal } from '@mantine/core';
-import { formatTimeString } from 'utils/utils';
 import UpdateTaskContainer from 'container/UpdateTask';
-
+import { Alarm, Coffee, Edit, Flash, TickCircle, Trash } from 'iconsax-react';
+import { useState } from 'react';
+import { formatTimeString } from 'utils/utils';
 
 const StatusList = [
 	{
@@ -27,20 +25,30 @@ const StatusList = [
 	},
 ];
 
-const TaskItem = ({ data }: any) => {
+const TaskItem = ({ data, handleCompleteTask, handleDeleteTask }: any) => {
 	const timeFomarted = formatTimeString(data.deadline);
-	const [opened, setOpened] = useState(false);
+	const [openedEdit, setOpenedEdit] = useState(false);
+	const [openedDelete, setOpenedDelete] = useState(false);
 
 	return (
 		<>
-			<Modal opened={opened} onClose={() => setOpened(false)} size="lg">
-				<UpdateTaskContainer data={data}/>
+			<Modal opened={openedEdit} onClose={() => setOpenedEdit(false)} size="lg">
+				<UpdateTaskContainer data={data} />
 			</Modal>
-			<div
-				onClick={() => setOpened(true)}
-				// to={`/${data?.labelData.name}/${data?.labelData._id}`}
-				className="overflow-hidden border-slate-400 w-72 max-w-md max-h-[290px] rounded-md bg-white mr-3 mb-3 grow drop-shadow-[0_10px_10px_#9c9c9c18]"
-			>
+			<Modal opened={openedDelete} onClose={() => setOpenedDelete(false)} size="sm">
+				<p className="text-2xl">
+					Are you sure delete <span className="font-bold italic">{data.name}</span> ?
+				</p>
+				<button
+					onClick={() => {
+						handleDeleteTask(data._id), setOpenedDelete(false);
+					}}
+					className="bg-red-700 rounded-md text-white mx-auto mt-4 py-2 px-3"
+				>
+					Yes! Delete
+				</button>
+			</Modal>
+			<div className="overflow-hidden border-slate-400 w-72 max-w-md max-h-[290px] rounded-md bg-white mr-3 mb-3 grow drop-shadow-[0_10px_10px_#9c9c9c18]">
 				<div
 					className="w-full h-1 bg-sky-500"
 					style={{
@@ -72,7 +80,7 @@ const TaskItem = ({ data }: any) => {
 								</div>
 							</div>
 						</div>
-						<div className="content leading-8 text-regal-blue">
+						<div className="content leading-8 text-regal-blue" onClick={() => setOpenedEdit(true)}>
 							<div className="py-3 pb-2 text-truncate overflow-hidden">
 								<div
 									dangerouslySetInnerHTML={{
@@ -91,13 +99,22 @@ const TaskItem = ({ data }: any) => {
 							</p>
 						</div>
 						<div className="action flex self-end">
-							<button className="flex jusify-center items-center mt-3 pr-3 rounded text-gray-500 hover:text-blue-600">
+							<button
+								onClick={() => setOpenedEdit(true)}
+								className="flex jusify-center items-center mt-3 pr-3 rounded text-gray-500 hover:text-blue-600"
+							>
 								<Edit className="mr-2" size="20" color="currentColor" variant="Outline" />
 							</button>
-							<button className="flex jusify-center items-center mt-3 pr-3 rounded text-gray-500 hover:text-blue-600">
+							<button
+								onClick={() => handleCompleteTask(data._id)}
+								className="flex jusify-center items-center mt-3 pr-3 rounded text-gray-500 hover:text-blue-600"
+							>
 								<TickCircle className="mr-2" size="20" color="currentColor" variant="Outline" />
 							</button>
-							<button className="flex jusify-center items-center mt-3 pr-3 rounded text-gray-500 hover:text-blue-600">
+							<button
+								onClick={() => setOpenedDelete(true)}
+								className="flex jusify-center items-center mt-3 pr-3 rounded text-gray-500 hover:text-blue-600"
+							>
 								<Trash className="mr-2" size="20" color="currentColor" variant="Outline" />
 							</button>
 							<button className="flex jusify-center items-center mt-3 pr-3 rounded text-blue-600">

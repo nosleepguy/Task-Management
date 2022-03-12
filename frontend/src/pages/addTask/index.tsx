@@ -1,5 +1,5 @@
-import React from "react";
 import AddTaskContainer from "container/AddTask";
+import React from "react";
 
 const AddTaskPage = () => {
     return (

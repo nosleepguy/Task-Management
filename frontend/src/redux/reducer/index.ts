@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { AuthReducer } from "./Auth";
-import { TaskReducer } from "./Task";
 import { LabelReducer } from "./Label";
+import { TaskReducer } from "./Task";
 
 const rootReducer = combineReducers({
     AuthReducer,

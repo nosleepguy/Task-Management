@@ -20,7 +20,9 @@ export default class TaskServices {
                 [
                     {
                         '$match': {
-                            'owner_id': ObjectId(owner_id)
+                            'owner_id': ObjectId(owner_id),
+                            'softDelete': false,
+                            'completed': false
                         }
                     }, {
                         '$lookup': {
@@ -41,6 +43,22 @@ export default class TaskServices {
                 ]
             ).toArray();
             return responseSuccess(tasks);
+        } catch (error) {
+            return responseError(error || PostError.POST_NOT_FOUND)
+        }
+    }
+    async completeTask(owner_id, task_id) {
+        try {
+            await db.task.updateOne({ '_id': ObjectId(task_id), 'owner_id': ObjectId(owner_id) }, { $set: { completed: true } });
+            return responseSuccess();
+        } catch (error) {
+            return responseError(error || PostError.POST_NOT_FOUND)
+        }
+    }
+    async deleteTask(task_id) {
+        try {
+            await db.task.updateOne({ '_id': ObjectId(task_id) }, { $set: { softDelete: true } });
+            return responseSuccess();
         } catch (error) {
             return responseError(error || PostError.POST_NOT_FOUND)
         }

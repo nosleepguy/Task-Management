@@ -8,6 +8,7 @@ export default class Task {
         this.status = status;
         this.label_id = ObjectId(label_id);
         this.completed = false;
+        this.softDelete = false;
         this.createdAt = generateTime();
         this.lastModified = generateTime();
     }

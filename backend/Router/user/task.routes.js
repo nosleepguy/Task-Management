@@ -17,6 +17,20 @@ export default [
         middleware: [Authorization],
         action: userTaskController.getAllTask
     },
+    {
+        method: 'put',
+        route: '/api/user/tasks',
+        controller: userTaskController,
+        middleware: [Authorization],
+        action: userTaskController.completeTask
+    },
+    {
+        method: 'delete',
+        route: '/api/user/tasks',
+        controller: userTaskController,
+        middleware: [Authorization],
+        action: userTaskController.deleteTask
+    }
     // {
     //     method: 'get',
     //     route: '/api/user/post/detail',

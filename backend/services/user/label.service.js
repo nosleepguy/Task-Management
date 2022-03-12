@@ -34,12 +34,12 @@ export default class LabelServices {
         }
     }
     async deleteLabel(owner_id, label_id) {
-        let checkTask = await db.task.find({ 'label_id': label_id }).toArray();
+        let checkTask = await db.task.find({ 'label_id': new ObjectId(label_id) }).toArray();
         if (checkTask.length > 0) {
-            return responseError(LabelError.POST_EXISTED);
+            return responseError(LabelError.LABEL_CAN_NOT_DELETE);
         } else {
             try {
-                await db.label.deleteOne({ '_id': new ObjectId(label_id), 'owner_id': new ObjectId(owner_id) });
+                await db.label.updateOne({ '_id': new ObjectId(label_id), 'owner_id': new ObjectId(owner_id) }, { $set: { softDelete: true } });
                 return responseSuccess();
             } catch (error) {
                 return responseError(error || LabelError.LALEB_NOT_FOUND)

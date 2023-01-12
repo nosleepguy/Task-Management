@@ -1,4 +1,4 @@
-import UserTaskController from "../../Controller/user/task.controller.js"
+import UserTaskController from "../../Controller/user/task.controller.js";
 import { Authorization } from "../../middleware/authorization.js";
 
 const userTaskController = new UserTaskController();

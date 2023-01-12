@@ -1,8 +1,8 @@
 import { ObjectId } from 'mongodb';
 import { LabelError } from '../../common/error/index.js';
+import Label from '../../models/label.model.js';
 import { db } from '../../repositories/index.js';
 import { responseError, responseSuccess } from '../../Utils/index.js';
-import Label from '../../models/label.model.js';
 
 export default class LabelServices {
 

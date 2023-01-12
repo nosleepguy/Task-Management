@@ -1,12 +1,12 @@
 
 import jwt from "jsonwebtoken";
 import { ObjectId } from 'mongodb';
+import { UserStatus } from '../../common/enum.js';
+import { AuthError, CommonError, UserError } from '../../common/error/index.js';
+import User from '../../models/user.model.js';
 import { db } from '../../repositories/index.js';
 import signUpTemplate from '../../template/signUp.template.js';
-import User from '../../models/user.model.js';
-import { generatePassword, checkPassword, sendMail, responseSuccess, responseError } from '../../Utils/index.js';
-import { AuthError, CommonError, UserError } from '../../common/error/index.js';
-import { UserStatus } from '../../common/enum.js';
+import { checkPassword, generatePassword, responseError, responseSuccess, sendMail } from '../../Utils/index.js';
 const UserModal = new User();
 export default class UserServices {
     async login(email, password) {

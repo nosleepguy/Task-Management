@@ -1,8 +1,8 @@
 import { ObjectId } from 'mongodb';
 import { PostError } from '../../common/error/index.js';
+import Task from '../../models/task.model.js';
 import { db } from '../../repositories/index.js';
 import { responseError, responseSuccess } from '../../Utils/index.js';
-import Task from '../../models/task.model.js';
 export default class TaskServices {
 
     async upTask(owner_id, dataContent, deadline, status, label_id) {

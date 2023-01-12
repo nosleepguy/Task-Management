@@ -1,9 +1,9 @@
-import express from 'express';
-import dotenv from 'dotenv';
 import cors from 'cors';
+import dotenv from 'dotenv';
+import express from 'express';
 import { initDatabase } from './repositories/index.js';
-import { logRequest } from './Utils/index.js';
 import Routes from './Router/user/index.js';
+import { logRequest } from './Utils/index.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 8080;
